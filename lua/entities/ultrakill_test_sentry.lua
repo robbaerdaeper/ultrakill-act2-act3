@@ -1135,21 +1135,9 @@ if SERVER then
       self:UKS_ApplyKickDamage()
     end
 
-    -- canon: a player ground-slam shockwave interrupts the aim. The ukdash
-    -- slam deals no damage — watch the NW2 flag drop (impact frame) nearby.
-    do
-      local slams = self.UKS_SlamState
-      if not slams then slams = {}; self.UKS_SlamState = slams end
-      for _, ply in ipairs( player.GetAll() ) do
-        local active = ply:GetNW2Bool( "ULTRAKILL_GroundSlamActive", false )
-        local id = ply:EntIndex()
-        if slams[ id ] and not active
-            and ( self.UKS_Aiming or self.UKS_Mode == "windup" )
-            and ply:GetPos():DistToSqr( self:GetPos() ) <= UKS_SLAM_RADIUS_SQR() then
-          self:UKS_Interrupt()
-        end
-        slams[ id ] = active
-      end
+    -- canon: sentries getting knocked into the air will cancel their aiming stsate
+    if ( self.UKS_Aiming or self.UKS_Mode == "windup" ) and not self:IsOnGround() then
+      self:UKS_CancelAim( true )
     end
 
     -- vision cache (throttled): drives both the windup decision and
