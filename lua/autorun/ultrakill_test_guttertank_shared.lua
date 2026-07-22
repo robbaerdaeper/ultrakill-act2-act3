@@ -59,7 +59,7 @@ UKGuttertank.COOLDOWN_MULT = 1.25
 -- an approaching target (10 m + 0.5 s lead) while the swing itself only
 -- reaches lunge 6 m + hit sphere ~4 m — he kept punching air. Trigger cut to
 -- 6 m with a 0.2 s lead; the punch damage/lunge stay canon.
-UKGuttertank.PUNCH_RANGE = 6 * UNIT    -- canon 10
+UKGuttertank.PUNCH_RANGE = 5 * UNIT
 UKGuttertank.PUNCH_PREDICT = 0.2       -- canon 0.5 s
 UKGuttertank.ROCKET_MIN_RANGE = 15 * UNIT
 UKGuttertank.MINE_SPACING = 15 * UNIT
