@@ -1,75 +1,100 @@
--- lua/entities/ultrakill_test_virtue_ragdoll_sphere.lua
--- Посмертный труп Virtue = ТОЛЬКО голубой шар с розовым ромбом-ядром.
--- Модель virtue_corpse.mdl вообще не содержит цепей/короны (выброшены при компиляции),
--- поэтому белым цепям взяться неоткуда. Падает, катится, при ударе — канон ULTRAKILL-взрыв.
-
-AddCSLuaFile()
+local UltrakillBase = UltrakillBase
+local SafeRemoveEntity = SafeRemoveEntity
+local Angle = Angle
+local AddCSLuaFile = AddCSLuaFile
 
 if not UK_VIRTUE then include("ultrakill/virtue_constants.lua") end
+if not DrGBase or not UltrakillBase then return end -- return if DrGBase or UltrakillBase isn't installed
+ENT.Base = "ultrakillbase_projectile"
 
-ENT.Type        = "anim"
-ENT.Base        = "base_anim"
-ENT.PrintName   = "Virtue Corpse"
-ENT.Author      = "ultragmod"
-ENT.Spawnable   = false
+-- Misc --
 
-local CORPSE_MDL = "models/ultrakill_prelude_test/virtue_corpse.mdl"
+ENT.PrintName = "Virtue Corpse"
+ENT.Category = "UltrakillBase"
+ENT.Models = { "models/ultrakill/mesh/effects/projectiles/Mortar.mdl" }
+ENT.ModelScale = 1
+ENT.Spawnable = false
 
-if CLIENT then
-  util.PrecacheModel(CORPSE_MDL)
-end
+-- Collision --
+ENT.UltrakillBase_CustomCollisionEnabled = true
+
+-- Locomotion --
+ENT.Gravity = true
+
+ENT.UltrakillBase_HomingType = 3
+ENT.UltrakillBase_HomingTurningMultiplier = 0
+ENT.UltrakillBase_HomingTurningSpeed = 0
+
+ENT.Effect = nil
+
+
 
 if SERVER then
-  function ENT:Initialize()
-    self:SetModel(CORPSE_MDL)
-    -- Только сфера красная в ярости; ядро (virtue_core) — дефолтный розовый ромб.
-    if self.UKRS_Enraged then
-      for i, m in ipairs(self:GetMaterials()) do
+
+
+function ENT:CustomInitialize()
+
+  UltrakillBase.SoundScript( "Ultrakill_VirtueDeath", self:GetPos(), self )
+  self:SetRenderMode( RENDERMODE_TRANSCOLOR )
+  self:SetColor(Color(255,255,255,0))
+
+    self.effect = ents.Create("prop_effect") -- why is the virtue corpse a effecttt aaaaaaaaaaaaaahhh
+    self.effect :SetModel("models/ultrakill_prelude_test/virtue_corpse.mdl")
+    self.effect :SetPos(self:GetPos())
+      if self.UKRS_Enraged then
+      for i, m in ipairs(self.effect :GetMaterials()) do
         if string.find(string.lower(m), "sphere", 1, true) then
-          self:SetSubMaterial(i - 1, "models/ultrakill_test/virtue/virtue_sphere_enraged")
+          self.effect :SetSubMaterial(i - 1, "models/ultrakill_test/virtue/virtue_sphere_enraged")
         end
       end
     end
+    self.effect :Spawn()
 
-    -- У модели нет .phy → катящаяся сфера-физика.
-    self:PhysicsInitSphere(28, "metal")
-    self:SetMoveType(MOVETYPE_VPHYSICS)
-    self:SetSolid(SOLID_VPHYSICS)
-    self:SetCollisionGroup(COLLISION_GROUP_DEBRIS)
-    self:SetCollisionBounds(Vector(-28, -28, -28), Vector(28, 28, 28))
-    local phys = self:GetPhysicsObject()
-    if IsValid(phys) then
-      phys:Wake()
-      phys:EnableGravity(true)
-      phys:SetMass(20)
-    end
+    SafeRemoveEntityDelayed( self, 10 )
+    
+end
 
-    self.UKRS_SpawnTime = CurTime()
-    self.UKRS_Exploded  = false
-    timer.Simple(UK_VIRTUE.RAGDOLL_FADE_TIME, function()
-      if IsValid(self) then self:Remove() end
-    end)
+function ENT:CustomThink() 
+ if IsValid(self.effect) then
+  self.effect:SetPos(self:GetPos())
+  self.effect:SetAngles(self:GetAngles())
+ end
+end
+
+
+function ENT:OnTakeDamage( Dmg )
+
+  self:CheckParry( Dmg )
+
+  if not self:GetParried() and not self.HasExploded then
+
+    self:OnContact()
+
   end
 
-  function ENT:PhysicsCollide(data, physobj)
-    if self.UKRS_Exploded then return end
-    if data.Speed < 100 then return end
-    self:UKRS_SoftExplode()
-  end
+end
+
+
+function ENT:OnContact( Ent )
+
+  if self.HasExploded then return end
+
+  self:UKRS_SoftExplode()
+
+end
 
   function ENT:UKRS_SoftExplode()
-    self.UKRS_Exploded = true
+    self.HasExploded = true
     local pos = self:GetPos()
 
-    -- Канон: посмертный бабах Virtue — БЕЗУРОННАЯ ударная волна (воркшоп-репорт
-    -- 2026-07-10: боевой Ultrakill_Explosion с TakeDamage(50) читался как «взрыв,
-    -- который зачем-то ранит»). Визуал = прозрачный софт-взрыв базы Кевина.
+    -- Канонный ULTRAKILL-взрыв (тот же, что мины/ракеты базы) + канон-звук.
     local fx = EffectData()
     fx:SetOrigin(pos)
     fx:SetRadius(UK_VIRTUE.RAGDOLL_EXPLODE_RANGE / 150 * 100)
-    util.Effect("Ultrakill_Soft_Explosion", fx, true, true)
+    util.Effect( "ultrakill_test_softexplosion", fx )
+
     if UltrakillBase and UltrakillBase.SoundScript then
-      UltrakillBase.SoundScript("Ultrakill_Explosion_1", pos)
+      UltrakillBase.SoundScript( "Ultrakill_VirtueShatter", self:GetPos() )
     end
 
     for _, ent in ipairs(ents.FindInSphere(pos, UK_VIRTUE.RAGDOLL_EXPLODE_RANGE)) do
@@ -80,8 +105,11 @@ if SERVER then
       dir.z = math.max(dir.z, 50)
       ent:SetVelocity(dir:GetNormalized() * UK_VIRTUE.RAGDOLL_KNOCKBACK)
     end
+    self.effect:Remove()
     self:Remove()
   end
+
 end
 
-if CLIENT then function ENT:Draw() self:DrawModel() end end
+
+AddCSLuaFile()
