@@ -463,8 +463,8 @@ if SERVER then
 
     self:UKGutterman_RemoveShield()
     self:SetBodygroupByNameSafe( "shield", 1 )
-    self:EmitSound( UKGutterman.SOUND.ShieldBreak )
-    self:EmitSound( UKGutterman.SOUND.Bonk )
+    UltrakillBase.SoundScript( "Ultrakill_GuttermanShieldBreak", self:GetPos() )
+    UltrakillBase.SoundScript( "Ultrakill_GuttermanBonk", self:GetPos() )
 
     -- Canon ShieldBreak calls NewMovement.Parry(null, "GUARD BREAK"): the
     -- breaker gets the full parry feedback — flash, hitstop, heal/stamina.
@@ -538,7 +538,7 @@ if SERVER then
     self.UKGutterman_SlowMode = false
     self.UKGutterman_Firing = false
     self.UKGutterman_TrackingSpeed = UKGutterman.TRACK_DEFAULT
-    self:EmitSound( UKGutterman.SOUND.Bonk )
+    UltrakillBase.SoundScript( "Ultrakill_GuttermanBonk", self:GetPos() )
 
     -- canon Gutterman.GotParried: Brutal+ answers a parry with the same rage
     if self:UKGutterman_GetDifficulty() >= 4 then self:UKGutterman_Enrage() end
@@ -1278,6 +1278,12 @@ if SERVER then
       self:SetParryable( false )
     end
 
+    -- stop moving during stagger/bash
+    if self.UKGutterman_ActionSequence == "ShieldBreak" or self.UKGutterman_ActionSequence == "ShieldBash" or self.UKGutterman_ActionSequence == "Smack" then
+      self:SetVelocity(Vector(0,0,0))
+    end
+
+
     -- possessed: the base GetEnemy override returns the lock-on target
     -- (NULL entity when nothing is locked)
     local enemy = self:GetEnemy()
@@ -1422,9 +1428,10 @@ if SERVER then
     util.Effect( "ThumperDust", fx, true, true )
 
     util.ScreenShake( ground, 10, 60, 0.7, 700 )
-    -- canon GuttermanBonk on the body hitting the ground
-    self:EmitSound( UKGutterman.SOUND.Bonk, 95 )
-    sound.Play( "physics/metal/metal_largebox_impact_hard3.wav", ground, 90, 70 )
+        -- canon GuttermanBonk on the body hitting the ground
+    UltrakillBase.SoundScript( "Ultrakill_GuttermanBonk", self:GetPos() )
+    UltrakillBase.SoundScript( "Ultrakill_PunchHeavy", ground )
+    self:Shockwave( false, self:GetPos(), ground, 0, 1, 200, 0.1 )
   end
 
   -- Jumping while standing on the living Gutterman: the engine keeps
