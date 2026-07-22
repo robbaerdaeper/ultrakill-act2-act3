@@ -138,10 +138,10 @@ function ENT:OnSpawn()
 
   -- Anchor: idol is immovable by physics (explosions, props, etc.).
   local phys = self:GetPhysicsObject()
-  if IsValid( phys ) then
-    phys:EnableMotion( false )
-    phys:SetMass( 50000 )
-  end
+    if IsValid( phys ) then
+      phys:EnableMotion(false)
+      phys:Sleep()
+    end
 
   -- Seed the delta-time tracker used by CustomThink for rate-limited yaw.
   self._IdolLastFaceTime = CurTime()
@@ -150,18 +150,6 @@ function ENT:OnSpawn()
   self.SlowTimerID = "UKIdol_Slow_" .. self:EntIndex()
   timer.Create( self.SlowTimerID, 0.2, 0, function()
     if not IsValid( self ) then return end
-    -- ai_disabled / per-bot disable: an inert idol projects no blessing and
-    -- stops retargeting; the NW2 flag also freezes the client face tracking
-    -- (ai_disabled is a server-only convar, unreadable client-side)
-    local disabled = self:IsAIDisabled()
-    self:SetNW2Bool( "UKIdol_AIDisabled", disabled )
-    if disabled then
-      if UKIdol.Bonds[ self ] ~= nil then UKIdol.Unbind( self ) end
-      return
-    end
-    -- possessed: the possessor owns target selection (IN_ATTACK bless bind) —
-    -- the auto-rescan would override their pick every 0.2s. Current bond stays.
-    if self:IsPossessed() then return end
     self:SlowUpdate()
   end )
 
@@ -176,117 +164,9 @@ function ENT:OnRemove()
 end
 
 
--- Face-tracking runs purely client-side (see the CLIENT block), so CustomThink
--- only enforces the anchor. The frozen phys object does NOT stop explosions:
--- the base blast knockback writes nextbot loco velocity directly
--- (ultrakillbase Explosion → SetVelocity), so blasts crept the statue around
--- the map (workshop report 2026-07-10). Snap back to the settle point every
--- tick; adopt single-tick jumps (tool teleports) as the new anchor and let go
--- while a physgun holds us.
+-- Stop any velocity changes from any source such as rocket launchers.
 function ENT:CustomThink()
-
-  if self._UKIdolHeld then
-    -- safety: if the pickup was denied or the drop event got lost, a holder
-    -- who no longer wields a physgun releases the latch
-    local h = self._UKIdolHolder
-    if not IsValid( h ) or not IsValid( h:GetActiveWeapon() )
-      or h:GetActiveWeapon():GetClass() ~= "weapon_physgun" then
-      self._UKIdolHeld = false
-    end
-    self._UKIdolAnchor = nil
-    return
-  end
-
-  local pos = self:GetPos()
-  if not self._UKIdolAnchor then
-    -- settle after spawn/drop: anchor once we're standing on ground
-    if self.loco and self.loco:IsOnGround() then self._UKIdolAnchor = pos end
-    return
-  end
-
-  local distSqr = pos:DistToSqr( self._UKIdolAnchor )
-  if distSqr == 0 then return end
-  -- a legit teleport (toolgun etc.) sets position WITHOUT imparting velocity;
-  -- a blast shove always arrives with loco velocity — round 2 finding: the
-  -- old distance-only test adopted big single-tick blast jumps as "teleports"
-  -- and the statue sailed away with the rocket
-  local vel = self.loco and self.loco:GetVelocity() or vector_origin
-  if distSqr > 300 * 300 and vel:LengthSqr() < 25 then
-    self._UKIdolAnchor = pos
-    return
-  end
-
-  self:SetPos( self._UKIdolAnchor )
-  if self.loco then self.loco:SetVelocity( vector_origin ) end
-
-end
-
-
-hook.Add( "PhysgunPickup", "UKIdol_AnchorHold", function( ply, ent )
-  if ent.UKIdol_IsIdolStatue then
-    ent._UKIdolHeld   = true
-    ent._UKIdolHolder = ply
-  end
-end )
-
-hook.Add( "PhysgunDrop", "UKIdol_AnchorHold", function( _, ent )
-  if ent.UKIdol_IsIdolStatue then
-    ent._UKIdolHeld   = false
-    ent._UKIdolAnchor = nil    -- re-settle wherever we were dropped
-    -- deathcatcher variant: its anchor must stay a valid vector (the opening
-    -- SetModel pin reads it) — re-seed at the drop position immediately
-    if ent.UKDC_AnchorPos then ent.UKDC_AnchorPos = ent:GetPos() end
-  end
-end )
-
-
--- Shotgun pellets pass through the statues with a gunshot reaction instead of
--- popping them. Round 3 (2026-07-10): entity-level OnTakeDamage gates proved
--- unreliable (DrGBase's AddNextbot wrapper + its internal HP application) —
--- the engine-level EntityTakeDamage hook fires BEFORE anything applies and
--- `return true` blocks the hit outright.
--- Detector: HL2 pellets carry DMG_BUCKSHOT; dredux/uk shotguns fire plain
--- DMG_BULLET with ammo "none", so those are recognized by the attacker's
--- drawn weapon class. NB: dmg:IsBulletDamage() keys off the ammo type and
--- is false for ammo-less bullets — only explicit bit checks work here.
-local function IsShotgunPellet( dmg )
-  if dmg:IsDamageType( DMG_BLAST ) then return false end
-  if dmg:IsDamageType( DMG_BUCKSHOT ) then return true end
-  if not dmg:IsDamageType( DMG_BULLET ) then return false end
-  local atk = dmg:GetAttacker()
-  if not ( IsValid( atk ) and atk.GetActiveWeapon ) then return false end
-  local wep = atk:GetActiveWeapon()
-  return IsValid( wep ) and string.find( wep:GetClass(), "shotgun", 1, true ) ~= nil
-end
-
-hook.Add( "EntityTakeDamage", "UKIdol_PelletBounce", function( ent, dmg )
-  if not ent.UKIdol_IsIdolStatue then return end
-  if not IsShotgunPellet( dmg ) then return end
-  local hitPos = dmg:GetDamagePosition()
-  if not hitPos or hitPos:IsZero() then hitPos = ent:WorldSpaceCenter() end
-  local fx = EffectData()
-  fx:SetOrigin( hitPos )
-  fx:SetNormal( ( hitPos - ent:WorldSpaceCenter() ):GetNormalized() )
-  fx:SetMagnitude( 1 )
-  fx:SetScale( 0.6 )
-  fx:SetRadius( 2 )
-  util.Effect( "Sparks", fx, true, true )
-  if ( ent._UKIdolNextPlink or 0 ) <= CurTime() then
-    ent._UKIdolNextPlink = CurTime() + 0.1
-    sound.Play( "weapons/fx/rics/ric" .. math.random( 1, 5 ) .. ".wav",
-      hitPos, 72, math.random( 96, 108 ), 0.7 )
-  end
-  return true
-end )
-
-
--- uk_whiplash's grab trace skips any entity whose GetRidingEntity() is valid
--- (Providence r7 trick). The idol is Light for the base, so a successful hook
--- reels the whole statue into the player's face — blocked unless the Funny
--- Bugs toggle explicitly allows it.
-function ENT:GetRidingEntity()
-  if UKIdol and UKIdol.IsWhiplashPullEnabled and UKIdol.IsWhiplashPullEnabled() then return end
-  return self
+  self:SetVelocity(Vector(0,0,0))
 end
 
 
@@ -370,7 +250,7 @@ function ENT:OnDeath( dmg, hitGroup )
     -- +90 HP heal for the killer
     atk:SetHealth( math.min( atk:GetMaxHealth(), atk:Health() + 90 ) )
     -- (+80 Iconoclasm style would go here once UltrakillBase exposes a style HUD;
-    -- chat-print suppressed.)
+    -- chat-print suppressed per user request.)
   end
 
   -- Launch all nearby players away as if from a small shockwave (matches game).
@@ -405,7 +285,7 @@ function ENT:OnDeath( dmg, hitGroup )
   util.Effect( "ultrakill_test_softexplosion", fx )
 
   if UltrakillBase and UltrakillBase.SoundScript then
-    UltrakillBase.SoundScript( "Ultrakill_Explosion_1", self:GetPos() )
+    UltrakillBase.SoundScript( "Ultrakill_VirtueShatter", self:GetPos() )
   end
 
   self:SetCollisionGroup( COLLISION_GROUP_DEBRIS )
@@ -645,26 +525,10 @@ end
 -- ENT.Angles stays at default and never desyncs through network jitter.
 function ENT:UKIdol_UpdateClientYaw()
 
-  -- Possessed: the possessor steers the real angles server-side
-  -- (PossessionFaceForward) — the local-player override would pin the statue
-  -- on whoever renders it. SetRenderAngles persists until cleared with nil;
-  -- nil'ing UKIdol_VisualYaw re-snaps the lerp on dispossession.
-  if self:IsPossessed() then
-    if self.UKIdol_VisualYaw ~= nil then
-      self.UKIdol_VisualYaw     = nil
-      self.UKIdol_LastFaceFrame = nil
-      self:SetRenderAngles( nil )
-    end
-    return
-  end
-
   local now = RealTime()
   local dt  = now - ( self.UKIdol_LastFaceFrame or now )
   self.UKIdol_LastFaceFrame = now
   if dt <= 0 then return end
-
-  -- frozen statue: server mirrors ai_disabled into this NW2 flag
-  if self:GetNW2Bool( "UKIdol_AIDisabled", false ) then return end
 
   local ply = LocalPlayer()
   if not IsValid( ply ) or not ply:Alive() then return end
@@ -740,8 +604,6 @@ end    -- if CLIENT
 -- OnInjured re-calls it with a real hitgroup; without this gate the base
 -- DamageMultiplier runs twice (doubled impact sounds/blood on every hit).
 if SERVER then
-  -- (shotgun pellets are blocked engine-side by the EntityTakeDamage hook
-  -- "UKIdol_PelletBounce" above — this stub only keeps the double-call gate)
   function ENT:OnTakeDamage( dmg, hitgroup )
     if not isnumber( hitgroup ) then return end
     baseclass.Get( "ultrakillbase_nextbot" ).OnTakeDamage( self, dmg, hitgroup )
