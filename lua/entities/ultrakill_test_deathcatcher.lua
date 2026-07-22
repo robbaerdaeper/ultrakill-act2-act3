@@ -649,7 +649,7 @@ function ENT:OnDeath( dmg, hitGroup )
   util.Effect( "ultrakill_test_softexplosion", fx )
 
   if UltrakillBase and UltrakillBase.SoundScript then
-    UltrakillBase.SoundScript( "Ultrakill_Explosion_1", self:GetPos() )
+    UltrakillBase.SoundScript( "Ultrakill_VirtueShatter", self:GetPos() )
   end
 
   self:SetCollisionGroup( COLLISION_GROUP_DEBRIS )
