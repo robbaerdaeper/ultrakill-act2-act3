@@ -21,7 +21,7 @@ UKGuttertank.UNIT = 40
 -- Canon Guttertank.GetSpeed: 20 m/s, angular 1200, acceleration 80; SetSpeed
 -- anim/nav multipliers per difficulty (0 HARMLESS .. 5 UKMD).
 local UNIT = UKGuttertank.UNIT
-UKGuttertank.BASE_SPEED = 14 * UNIT -- round 3 2026-07-10: «уменьшить скорость ходьбы» (was 20)
+UKGuttertank.BASE_SPEED = 10 * UNIT -- round 3 2026-07-10: «уменьшить скорость ходьбы» (was 20)
 UKGuttertank.SPEED_MULT = { [0] = 0.6, [1] = 0.8, [2] = 0.9, [3] = 1.0, [4] = 1.0, [5] = 1.0 }
 function UKGuttertank.Speed( d )
   return UKGuttertank.BASE_SPEED * ( UKGuttertank.SPEED_MULT[ d ] or 1.0 )
