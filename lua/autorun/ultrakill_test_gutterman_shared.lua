@@ -14,11 +14,11 @@ UKGutterman.BOSS_TITLE = "GUTTERMAN"
 -- Canon scale: compiled model ~174 su tall vs ~4.4 m in ULTRAKILL => ~40 su/m.
 UKGutterman.UNIT = 40
 -- Canon standard profile: movement speed 10 m/s, windup 1/s, tracking base 1 m/s.
-UKGutterman.MOVE_SPEED = 7 * UKGutterman.UNIT -- round 4 2026-07-10: «уменьшить скорость гаттермана» (was 10 = canon)
+UKGutterman.MOVE_SPEED = 10 * UKGutterman.UNIT
 UKGutterman.WINDUP_SPEED = 1
 UKGutterman.TRACK_DEFAULT = 1 * UKGutterman.UNIT
 -- Canon ShieldBash trigger: head distance < 12 m.
-UKGutterman.BASH_RANGE = 12 * UKGutterman.UNIT
+UKGutterman.BASH_RANGE = 6 * UKGutterman.UNIT
 -- Swing contact zone (canon damage comes from a SwingCheck2 collider on the
 -- shield/hand, not from range checks — keep the zone tight to the model).
 UKGutterman.BASH_HIT_FORWARD = 1.5 * UKGutterman.UNIT
