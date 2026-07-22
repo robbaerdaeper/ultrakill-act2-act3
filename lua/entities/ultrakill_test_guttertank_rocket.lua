@@ -173,7 +173,12 @@ if SERVER then
     fx:SetOrigin( self:WorldSpaceCenter() )
     fx:SetRadius( 110 )
     util.Effect( "ultrakill_test_gt_windup", fx, true, true )
-    self:EmitSound( UKGuttertank.SOUND.MineBeep, 80, 130, 0.8 )
+    local pitchincrease = 0
+    timer.Create("FreezeBeeps", 0.1, 10, function()
+    if IsValid(self) then
+    self:EmitSound( UKGuttertank.SOUND.MineBeep, 80, 80 + pitchincrease, 0.8 )
+    pitchincrease = pitchincrease + 6
+    end
     if self.UKGT_LoopSound then self.UKGT_LoopSound:ChangePitch( 160, 0.1 ) end
   end
 
