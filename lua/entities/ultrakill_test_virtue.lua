@@ -32,17 +32,17 @@ ENT.FlyingHeight     = 96
 
 ENT.AISight          = false
 ENT.MeleeAttackRange = 10000
-ENT.ReachEnemyRange  = 600
+ENT.ReachEnemyRange  = math.huge
 ENT.AvoidEnemyRange  = 0
-ENT.Acceleration     = 1500
-ENT.Deceleration     = 1500
+ENT.Acceleration = 5500
+ENT.Deceleration = 2500
 ENT.JumpHeight       = 0
 ENT.StepHeight       = 0
 ENT.MaxYawRate       = 400
 ENT.DeathDropHeight  = math.huge
 ENT.UseWalkframes    = false
-ENT.WalkSpeed        = 500
-ENT.RunSpeed         = 500
+ENT.WalkSpeed        = 1000
+ENT.RunSpeed         = 1000
 ENT.IdleAnimation    = "Idle"; ENT.IdleAnimRate = 1
 ENT.WalkAnimation    = "Idle"; ENT.WalkAnimRate = 1
 ENT.RunAnimation     = "Idle"; ENT.RunAnimRate  = 1
@@ -116,7 +116,6 @@ if SERVER then
     self.UKVirtue_NextAttack       = CurTime() + UK_VIRTUE.ATTACK_CD_INITIAL
     self.UKVirtue_AttackCount      = 0
     self.UKVirtue_Enraged          = false
-    self.UKVirtue_DodgeCD          = math.Rand(0.5, UK_VIRTUE.DODGE_CD_MAX)
     self.UKVirtue_Parryable        = false
     self.UKVirtue_ActiveInsignia   = nil
     self.UKVirtue_NextEnrageCheck  = 0
@@ -131,6 +130,8 @@ if SERVER then
   function ENT:OnSpawn()
     BaseClass.OnSpawn(self)
     UltrakillBase.TraceSetPos(self, self:GetPos() + Vector(0, 0, 80))
+    self:SetCooldown( "Attack", 1 )
+    self.CanDodge = true
   end
 
   function ENT:OnRemove() UK_VirtueGlobal.Unregister(self) end
@@ -142,10 +143,6 @@ if SERVER then
     -- но УВАЖАЕМ отношения: если игрок помечен нейтральным/дружественным
     -- (инструмент DrGBase "Disable/Relationship" или UltrakillBase_Friendly),
     -- виртуха его игнорирует и не атакует.
-    -- Плюс ai_ignoreplayers (сандбокс-опция "Ignore Players") — без этой
-    -- проверки fallback целит игрока вопреки настройке.
-    local cvIgnore = GetConVar("ai_ignoreplayers")
-    if cvIgnore and cvIgnore:GetBool() then return nil end
     local closest, cdist = nil, math.huge
     for _, ply in ipairs(player.GetAll()) do
       if not ply:Alive() then continue end
@@ -173,61 +170,68 @@ if SERVER then
   -- поэтому атаку/додж/энрейдж надо явно гейтить по IsAIDisabled, иначе виртуха
   -- продолжает стрелять при выключенном AI.
   function ENT:CustomThink()
-    if self:Health() <= 0 then return end
-    if self:IsAIDisabled() then return end
-    -- Под поссессией автономные атака/додж молчат (атака идёт с биндов);
-    -- enrage-триггер оставлен: считает и одержимые атаки.
-    if not self:IsPossessed() then
-      self:UKVirtue_TickAttack()
-      self:UKVirtue_TickDodge()
-    end
-    self:UKVirtue_TickEnrage()
+   if not self:HasEnemy() or not self.CanDodge or self:IsAIDisabled() then return end
+  local Enemy = self:GetEnemy()
+
+  if self:IsInRange( Enemy, self.ReachEnemyRange ) and not self:IsInRange( Enemy, 200 ) and self:GetCooldown( "Dodge" ) <= 0 then
+
+    self:CallInCoroutine( self.DroneDodge, Enemy, "Side" )
+
+    -- the difference between drones and virtues is that they dont attempt to dash back like drones do. they only dash back when hit in close range!
+  --elseif self:IsInRange( Enemy, 200 ) and self:GetCooldown( "Back" ) <= 0 then
+
+    --self:CallOverCoroutine( self.DroneDodge, false, Enemy, "Back", true )
+
+  end
   end
 
-  function ENT:UKVirtue_TickAttack()
-    if CurTime() < self.UKVirtue_NextAttack then return end
-    if not UK_VirtueGlobal.CanAttack(self) then return end
-    local target = self:UKVirtue_GetEnemy()
-    if not IsValid(target) then return end
-    self:UKVirtue_SpawnInsignia(target)
+  function ENT:OnMeleeAttack( Enemy )
+  if self:GetCooldown( "Attack" ) > 0 then return end
+  self:UKVirtue_SpawnInsignia(Enemy)
+  self:SetCooldown( "Attack", 8 )
+  self:UKVirtue_CheckEnrageTriggers()
   end
 
-  function ENT:UKVirtue_TickDodge()
-    local target = self:UKVirtue_GetEnemy()
-    if not IsValid(target) then return end
+function ENT:DroneDodge( Enemy, Direction, Skip ) -- Virtues ingame actually use drones as a base for their AI, so we can just reuse the code from ACT 1 enemies and tweak it a bit.
 
-    self.UKVirtue_DodgeCD = self.UKVirtue_DodgeCD - FrameTime()
-    if self.UKVirtue_DodgeCD > 0 then return end
+  if self:GetCooldown( "Dodge" ) > 0 and not Skip or self:GetCooldown( "Back" ) > 0 then return end
 
-    local diff   = self:UKVirtue_GetDifficulty()
-    local chance = UK_VIRTUE.DODGE_DIFF_CHANCE[diff] or 1.0
-    if math.random() > chance then
-      self.UKVirtue_DodgeCD = math.Rand(UK_VIRTUE.DODGE_CD_MIN, UK_VIRTUE.DODGE_CD_MAX)
-      return
-    end
+  if Direction == "Back" then
 
-    local up    = Vector(0, 0, 1)
-    local right = self:GetRight()
-    local dir   = up    * math.Rand(-1, 1)
-                + right * math.Rand(-1, 1)
-    if dir:IsZero() then dir = up end
-    dir:Normalize()
+    Direction = -self:GetAimVector()
 
-    local tr = util.TraceLine{ start  = self:GetPos(),
-                               endpos = self:GetPos() + dir * UK_VIRTUE.DODGE_WALL_PROBE,
-                               filter = self, mask = MASK_SOLID_BRUSHONLY }
-    if tr.Hit then dir = -dir end
+    self:SetCooldown( "Back", 0.33333 / self:CalculateAnimRate() )
 
-    self:ApproachFlying(self:GetPos() + dir * UK_VIRTUE.DODGE_FORCE * 2, 3)
-    self:EmitSound("ultrakill_test/virtue_dodge.wav", 65, math.random(75, 125), 0.6, CHAN_AUTO)
-    self.UKVirtue_DodgeCD = math.Rand(UK_VIRTUE.DODGE_CD_MIN, UK_VIRTUE.DODGE_CD_MAX)
+  elseif Direction == "Side" then
+
+    Direction = self:GetAimAngles():Right() * math.random( -1,1 ) + self:GetAimAngles():Up() * math.random( -1,1 ) 
+
+    self:SetCooldown( "Dodge", ( math.random( 4, 8 ) / self:CalculateAnimRate() ) + 1 )
+
   end
 
-  function ENT:UKVirtue_TickEnrage()
-    if CurTime() < self.UKVirtue_NextEnrageCheck then return end
-    self.UKVirtue_NextEnrageCheck = CurTime() + 0.5
-    self:UKVirtue_CheckEnrageTriggers()
+  local Old_Speed = self:GetDesiredSpeed()
+
+  local Now = CurTime() + 0.2
+
+  self:SetDesiredSpeed( 1000 )
+
+  while true do
+
+    local Enemy = self:GetEnemy()
+
+    if CurTime() > Now or not IsValid( Enemy ) then break end
+
+    self:LookTowards( Enemy )
+    self:ApproachFlying( self:GetPos() + Direction )
+
+    self:YieldCoroutine( false )
+
   end
+
+  self:SetDesiredSpeed( Old_Speed )
+
+end
 
   function ENT:UKVirtue_SpawnInsignia(target)
     UK_VirtueGlobal.OnAttackStart(self)
@@ -252,7 +256,7 @@ if SERVER then
     local cd = math.Rand(UK_VIRTUE.ATTACK_CD_MIN, UK_VIRTUE.ATTACK_CD_MAX)
     if self.UKVirtue_Enraged then cd = cd * UK_VIRTUE.ENRAGE_ATTACK_CD_MULT end
     self.UKVirtue_NextAttack = CurTime() + UK_VIRTUE.INSIGNIA_WINDUP + cd
-    self:EmitSound("ultrakill_test/virtue_charge.wav", 75, 100, 1, CHAN_VOICE)
+    UltrakillBase.SoundScript( "Ultrakill_VirtueCharge", self:GetPos(), self )
   end
 
   -- Attack идёт ТОЛЬКО через TickAttack (CustomThink). OnMeleeAttack убран чтоб не было
@@ -317,7 +321,6 @@ if SERVER then
     if math.random() < 0.3 then
       self:EmitSound("ultrakill_test/virtue_hurt.wav", 70, math.random(90, 110), 1, CHAN_VOICE)
     end
-
     if not self.UKVirtue_Parryable then return end
     local attacker = nil
     if dmg.GetAttacker then attacker = dmg:GetAttacker() end
@@ -336,7 +339,7 @@ if SERVER then
 
     if IsValid(attacker) and attacker:IsPlayer() then
       local fwd = attacker:GetAimVector()
-      self:ApproachFlying(self:GetPos() + fwd * (UK_VIRTUE.PARRY_KNOCKBACK_FORCE / 100), 5)
+      self:CallOverCoroutine( self.DroneDodge, false, Enemy, "Back", true )
     end
 
     self.UKVirtue_Parryable = false
