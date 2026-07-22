@@ -1,0 +1,7 @@
+"UnlitGeneric"
+{
+	"$basetexture" "models/ultrakill_prelude_test/ferryman/ferryman_white"
+	"$model" "1"
+	"$color2" "[0.45 0.85 1.60]"
+	"$pointsamplemagfilter" 1
+}

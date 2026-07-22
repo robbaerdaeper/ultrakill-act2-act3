@@ -1,0 +1,6 @@
+UnlitGeneric
+{
+	"$basetexture" "ultrakill_prelude_test/soulorb/bonus_white"
+	"$model" 1
+	"$color" "[1 0.547 0]"
+}

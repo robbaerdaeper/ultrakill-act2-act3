@@ -1,0 +1,151 @@
+{
+ "bones": [
+  "BigJohn",
+  "Armature",
+  "IKLegPole.L",
+  "IKLegPole.L_end",
+  "IKLegPole.L_end_end",
+  "IKLegPole.R",
+  "IKLegPole.R_end",
+  "IKLegPole.R_end_end",
+  "IKLegTarget.L",
+  "IKLegTarget.L_end",
+  "IKLegTarget.L_end_end",
+  "IKLegTarget.R",
+  "IKLegTarget.R_end",
+  "IKLegTarget.R_end_end",
+  "Pelvis",
+  "Spine",
+  "Chest",
+  "Ammo.001",
+  "Ammo.001_end",
+  "Ammo.001_end_end",
+  "Ammo.002",
+  "Ammo.002_end",
+  "Ammo.002_end_end",
+  "Ammo.003",
+  "Ammo.003_end",
+  "Ammo.003_end_end",
+  "Ammo.004",
+  "Ammo.004_end",
+  "Ammo.004_end_end",
+  "Ammo.005",
+  "Ammo.005_end",
+  "Ammo.005_end_end",
+  "Chest.001",
+  "Chest.001_end",
+  "Chest.001_end_end",
+  "Neck",
+  "Head",
+  "Head_end",
+  "Head_end_end",
+  "Shoulder.L",
+  "UpperArm.L",
+  "LowerArm.L",
+  "Hand.L",
+  "Hand.L_end",
+  "Hand.L_end_end",
+  "Shoulder.R",
+  "UpperArm.R",
+  "LowerArm.R",
+  "Hand.R",
+  "MiniGunBase",
+  "MiniGunBarrel",
+  "MiniGunBarrel_end",
+  "MiniGunBarrel_end_end",
+  "UpperLeg.L",
+  "LowerLeg.L",
+  "Foot.L",
+  "Foot.L_end",
+  "Foot.L_end_end",
+  "UpperLeg.R",
+  "LowerLeg.R",
+  "Foot.R",
+  "Foot.R_end",
+  "Foot.R_end_end",
+  "Cigar",
+  "m16",
+  "m16_Magazine",
+  "MiniGun_Ammo",
+  "MiniGun_Barrel",
+  "MiniGun_Base",
+  "MiniGun_Pack",
+  "Mirror_Origin"
+ ],
+ "Head": {
+  "bone": "Head",
+  "world": [
+   0.0178,
+   2.2422,
+   0.2445
+  ]
+ },
+ "Chest": {
+  "bone": "Chest",
+  "world": [
+   0.0344,
+   1.7574,
+   0.0247
+  ]
+ },
+ "Pelvis": {
+  "bone": "Pelvis",
+  "world": [
+   0.0,
+   1.1764,
+   -0.0
+  ]
+ },
+ "MiniGunBase": {
+  "bone": "MiniGunBase",
+  "world": [
+   -0.4378,
+   1.3372,
+   0.189
+  ]
+ },
+ "MiniGunBarrel": {
+  "bone": "MiniGunBarrel",
+  "world": [
+   -0.3764,
+   1.3388,
+   0.8515
+  ]
+ },
+ "MiniGunBarrel_end": {
+  "bone": "MiniGunBarrel_end",
+  "world": [
+   -0.2912,
+   1.3411,
+   1.7695
+  ]
+ },
+ "Hand.R": {
+  "bone": "Hand.R",
+  "world": [
+   -0.4078,
+   1.4919,
+   -0.0028
+  ]
+ },
+ "Hand.L": {
+  "bone": "Hand.L",
+  "world": [
+   -0.1221,
+   1.6354,
+   0.6595
+  ]
+ },
+ "Neck": {
+  "bone": "Neck",
+  "world": [
+   0.0242,
+   2.144,
+   0.1298
+  ]
+ },
+ "_scale": {
+  "qc_scale": 60,
+  "note": "BigJohn units x1.5 m x40 su/m"
+ }
+}

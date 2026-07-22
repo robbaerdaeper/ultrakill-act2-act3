@@ -1,0 +1,6 @@
+"UnlitGeneric"
+{
+	"$basetexture" "models/ultrakill_prelude_test/johninator/bigjohn"
+	"$model" 1
+	"$pointsamplemagfilter" 1
+}

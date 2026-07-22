@@ -1,0 +1,8 @@
+"UnlitGeneric"
+{
+	"$basetexture" "models/ultrakill_prelude_test/rodent/rodent_body_flat"
+	"$color2"      "[ 0.05 1.0 0.0 ]"
+	"$nocull"      "1"
+	"$nodecal"     "1"
+	"$model"       "1"
+}

@@ -1,0 +1,8 @@
+"UnlitGeneric"
+{
+	"$basetexture" "models/ultrakill_prelude_test/mirror_reaper/mirror_reaper_hand"
+	"$model" "1"
+	"$pointsamplemagfilter" 1
+	// canon "ghostly, bloody hand" — blood-soaked tint over the pale ghost mesh
+	"$color" "[1 0.28 0.28]"
+}

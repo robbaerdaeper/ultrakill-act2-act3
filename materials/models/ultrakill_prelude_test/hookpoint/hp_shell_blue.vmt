@@ -1,0 +1,7 @@
+"UnlitGeneric"
+{
+	"$basetexture" "models/ultrakill_prelude_test/hookpoint/hp_shell_blue"
+	"$model" 1
+	"$translucent" 1
+	"$alpha" "0.45"
+}

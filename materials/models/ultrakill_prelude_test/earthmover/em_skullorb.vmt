@@ -1,0 +1,8 @@
+"UnlitGeneric"
+{
+	"$basetexture" "models/ultrakill_prelude_test/earthmover/em_skullorb"
+	"$model" 1
+	"$pointsamplemagfilter" 1
+	"$translucent" 1
+	"$nocull" 1
+}

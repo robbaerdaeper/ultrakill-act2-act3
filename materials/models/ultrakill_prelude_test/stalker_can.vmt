@@ -1,0 +1,26 @@
+// Stalker canister body (SandCan_Low slot — opaque, not glass).
+// Canon: StalkerCan.mat binds T_SandCanEmission via _EmissiveTex with
+// _UseAlbedoAsEmissive=0 — emission is a separate mask texture, only
+// certain UV regions emit light. Source equivalent: $selfillum + $selfillummask
+// with the emission VTF, tint driven each frame by the UKStalkerGlow
+// MaterialProxy from per-entity NW2 (state, blink, HP-frac).
+"VertexLitGeneric"
+{
+    "$basetexture"          "models/ultrakill_prelude_test/stalker_can_diffuse"
+    "$ignorez"              "0"
+    "$nocull"               "0"
+    "$pointsamplemagfilter" "1"
+    "$nomip"                "1"
+    "$nolod"                "1"
+
+    "$selfillum"            "1"
+    "$selfillummask"        "models/ultrakill_prelude_test/stalker_can_emission"
+    "$selfillumtint"        "[1 1 1]"
+
+    "Proxies"
+    {
+        "UKStalkerGlow"
+        {
+        }
+    }
+}

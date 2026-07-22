@@ -1,0 +1,564 @@
+{
+ "hurtidle": {
+  "file": "minotaur_hurtidle.smd",
+  "frames": 41,
+  "stop": 1.3000001,
+  "fps": 30,
+  "events": []
+ },
+ "idlecalm": {
+  "file": "minotaur_idlecalm.smd",
+  "frames": 41,
+  "stop": 1.3000001,
+  "fps": 30,
+  "events": []
+ },
+ "run": {
+  "file": "minotaur_run.smd",
+  "frames": 31,
+  "stop": 0.9666667,
+  "fps": 30,
+  "events": [
+   [
+    0.022395696,
+    "Footstep",
+    0,
+    0,
+    ""
+   ],
+   [
+    0.16178522,
+    "Footstep",
+    0,
+    0,
+    ""
+   ],
+   [
+    0.5824268,
+    "Footstep",
+    0,
+    0,
+    ""
+   ],
+   [
+    0.7199442,
+    "Footstep",
+    0,
+    0,
+    ""
+   ],
+   [
+    0.80488145,
+    "Footstep",
+    0,
+    0,
+    ""
+   ]
+  ]
+ },
+ "hammertantrum": {
+  "file": "minotaur_hammertantrum.smd",
+  "frames": 121,
+  "stop": 3.966667,
+  "fps": 30,
+  "events": [
+   [
+    0.92942816,
+    "Footstep",
+    0,
+    0,
+    ""
+   ],
+   [
+    1.1285914,
+    "HammerSwingStart",
+    0,
+    0,
+    ""
+   ],
+   [
+    1.477127,
+    "HammerSwingStop",
+    1,
+    0,
+    ""
+   ],
+   [
+    1.6430962,
+    "HammerSwingStart",
+    0,
+    0,
+    ""
+   ],
+   [
+    1.9252441,
+    "Footstep",
+    0,
+    0,
+    ""
+   ],
+   [
+    1.9750348,
+    "HammerSwingStop",
+    1,
+    0,
+    ""
+   ],
+   [
+    2.1741982,
+    "HammerSwingStart",
+    0,
+    0,
+    ""
+   ],
+   [
+    2.4065552,
+    "Footstep",
+    0,
+    0,
+    ""
+   ],
+   [
+    2.4126248,
+    "HammerSwingStopImpact",
+    1,
+    0,
+    ""
+   ],
+   [
+    2.4563458,
+    "Footstep",
+    0,
+    0,
+    ""
+   ],
+   [
+    2.688703,
+    "HammerSwingStart",
+    0,
+    0,
+    ""
+   ],
+   [
+    3.0040448,
+    "HammerSwingStop",
+    0,
+    0,
+    ""
+   ],
+   [
+    3.634728,
+    "Footstep",
+    0,
+    0,
+    ""
+   ],
+   [
+    3.8006973,
+    "StopAction",
+    0,
+    0,
+    ""
+   ]
+  ]
+ },
+ "hammersmash": {
+  "file": "minotaur_hammersmash.smd",
+  "frames": 111,
+  "stop": 3.6333334,
+  "fps": 30,
+  "events": [
+   [
+    0.9577406,
+    "HammerSwingStart",
+    0,
+    0,
+    ""
+   ],
+   [
+    1.1027266,
+    "HammerSwingStopImpact",
+    0,
+    0,
+    ""
+   ],
+   [
+    1.7786611,
+    "HammerExplosion",
+    0,
+    0,
+    ""
+   ],
+   [
+    2.493166,
+    "HammerExplosion",
+    1,
+    0,
+    ""
+   ],
+   [
+    3.0252442,
+    "StartTracking",
+    0,
+    0,
+    ""
+   ],
+   [
+    3.2532775,
+    "Footstep",
+    0,
+    0,
+    ""
+   ],
+   [
+    3.344491,
+    "Footstep",
+    0,
+    0,
+    ""
+   ],
+   [
+    3.5117157,
+    "StopAction",
+    1,
+    0,
+    ""
+   ]
+  ]
+ },
+ "meathigh": {
+  "file": "minotaur_meathigh.smd",
+  "frames": 111,
+  "stop": 3.6333334,
+  "fps": 30,
+  "events": [
+   [
+    0.44086474,
+    "HandBlood",
+    0,
+    0,
+    ""
+   ],
+   [
+    1.0967758,
+    "MeatSpawn",
+    0,
+    0,
+    ""
+   ],
+   [
+    2.3867505,
+    "MeatExplode",
+    0,
+    0,
+    ""
+   ],
+   [
+    3.010042,
+    "StartTracking",
+    0,
+    0,
+    ""
+   ],
+   [
+    3.4509068,
+    "StopAction",
+    0,
+    0,
+    ""
+   ]
+  ]
+ },
+ "meatlow": {
+  "file": "minotaur_meatlow.smd",
+  "frames": 101,
+  "stop": 3.3000002,
+  "fps": 30,
+  "events": [
+   [
+    0.4041267,
+    "HandBlood",
+    0,
+    0,
+    ""
+   ],
+   [
+    1.0136701,
+    "MeatSpawn",
+    0,
+    0,
+    ""
+   ],
+   [
+    2.4025104,
+    "MeatSplash",
+    0,
+    0,
+    ""
+   ],
+   [
+    2.7338912,
+    "StartTracking",
+    0,
+    0,
+    ""
+   ],
+   [
+    3.1895397,
+    "StopAction",
+    0,
+    0,
+    ""
+   ]
+  ]
+ },
+ "ramwindup": {
+  "file": "minotaur_ramwindup.smd",
+  "frames": 37,
+  "stop": 1.1666667,
+  "fps": 30,
+  "events": [
+   [
+    0.48326358,
+    "Footstep",
+    0,
+    0,
+    ""
+   ],
+   [
+    0.79079497,
+    "Footstep",
+    0,
+    0,
+    ""
+   ],
+   [
+    0.9421199,
+    "RamStart",
+    0,
+    0,
+    ""
+   ]
+  ]
+ },
+ "ramrun": {
+  "file": "minotaur_ramrun.smd",
+  "frames": 31,
+  "stop": 0.9666667,
+  "fps": 30,
+  "events": [
+   [
+    0.015589161,
+    "Footstep",
+    0,
+    0,
+    ""
+   ],
+   [
+    0.16582984,
+    "Footstep",
+    0,
+    0,
+    ""
+   ],
+   [
+    0.6552301,
+    "Footstep",
+    0,
+    0,
+    ""
+   ],
+   [
+    0.80488145,
+    "Footstep",
+    0,
+    0,
+    ""
+   ]
+  ]
+ },
+ "rambonk": {
+  "file": "minotaur_rambonk.smd",
+  "frames": 41,
+  "stop": 1.3000001,
+  "fps": 30,
+  "events": [
+   [
+    0.87573224,
+    "StartTracking",
+    0,
+    0,
+    ""
+   ],
+   [
+    0.95188284,
+    "Footstep",
+    0,
+    0,
+    ""
+   ],
+   [
+    1.0769874,
+    "StopAction",
+    0,
+    0,
+    ""
+   ]
+  ]
+ },
+ "ramswing": {
+  "file": "minotaur_ramswing.smd",
+  "frames": 31,
+  "stop": 0.9666667,
+  "fps": 30,
+  "events": [
+   [
+    0.6026499,
+    "Footstep",
+    0,
+    0,
+    ""
+   ],
+   [
+    0.61843556,
+    "Footstep",
+    0,
+    0,
+    ""
+   ],
+   [
+    0.80488145,
+    "StopAction",
+    0,
+    0,
+    ""
+   ]
+  ]
+ },
+ "ramparried": {
+  "file": "minotaur_ramparried.smd",
+  "frames": 71,
+  "stop": 2.3000002,
+  "fps": 30,
+  "events": [
+   [
+    0.74100417,
+    "BodyImpact",
+    0,
+    0,
+    ""
+   ],
+   [
+    0.7794979,
+    "StopMoving",
+    0,
+    0,
+    ""
+   ],
+   [
+    1.116318,
+    "Footstep",
+    0,
+    0,
+    ""
+   ],
+   [
+    1.789958,
+    "StartTracking",
+    0,
+    0,
+    ""
+   ],
+   [
+    2.0209205,
+    "Footstep",
+    0,
+    0,
+    ""
+   ],
+   [
+    2.1075313,
+    "Footstep",
+    0,
+    0,
+    ""
+   ],
+   [
+    2.2037656,
+    "StopAction",
+    0,
+    0,
+    ""
+   ]
+  ]
+ },
+ "death": {
+  "file": "minotaur_death.smd",
+  "frames": 130,
+  "stop": 4.3,
+  "fps": 30,
+  "events": [
+   [
+    0.97154814,
+    "BodyImpact",
+    0,
+    0,
+    ""
+   ]
+  ]
+ },
+ "_info": {
+  "HammerPoint": {
+   "bone": "HammerPoint",
+   "world": [
+    4.164,
+    1.2647,
+    -6.2403
+   ]
+  },
+  "Hurtable": {
+   "bone": "Hurtable",
+   "world": [
+    0.2027,
+    4.7305,
+    3.6704
+   ]
+  },
+  "Head": {
+   "bone": "Head",
+   "world": [
+    0.4043,
+    5.0274,
+    3.1285
+   ]
+  },
+  "Staff": {
+   "bone": "Staff",
+   "world": [
+    3.5055,
+    1.2811,
+    -3.2111
+   ]
+  },
+  "Hand_R": {
+   "bone": "Hand_R",
+   "world": [
+    -3.5711,
+    0.5294,
+    -0.2417
+   ]
+  },
+  "Belly": {
+   "bone": "Belly",
+   "world": [
+    0.1319,
+    1.5436,
+    -0.0036
+   ]
+  }
+ },
+ "_scale": {
+  "qc_scale": 80,
+  "note": "rigging02 units; x80 = source units"
+ }
+}

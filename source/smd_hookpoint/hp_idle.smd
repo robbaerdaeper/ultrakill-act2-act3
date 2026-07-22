@@ -1,0 +1,18 @@
+version 1
+nodes
+0 "hp_root" -1
+1 "hp_core" 0
+2 "hp_ring1" 0
+3 "hp_ring2" 0
+4 "hp_shell" 0
+5 "hp_pyr" 0
+end
+skeleton
+time 0
+0 0 0 0 0 0 0
+1 0 0 0 0 0 0
+2 0 0 0 0 0 0
+3 0 0 0 0 0 0
+4 0 0 0 0 0 0
+5 0 0 0 0 0 0
+end

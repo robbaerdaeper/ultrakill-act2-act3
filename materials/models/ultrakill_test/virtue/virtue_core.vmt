@@ -1,0 +1,9 @@
+// Ромб-ядро Divine Orthos (отдельный материал). UV мапится в розовый ромб
+// атласа divine_orthos_main — рендерится как розовое ядро (как раньше в crown).
+"VertexLitGeneric"
+{
+    "$basetexture"           "models/ultrakill_test/virtue/divine_orthos_main"
+    "$selfillum"             "1"
+    "$nocull"                "1"
+    "$nodecal"               "1"
+}

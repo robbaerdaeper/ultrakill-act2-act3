@@ -1,0 +1,11 @@
+"VertexLitGeneric"
+{
+  "$basetexture"   "models/ultrakill_idol/idol_diffuse"
+  "$nocull"        0
+  "$model"         1
+  "$phong"         1
+  "$phongexponent" 4
+  "$phongboost"    0.5
+  "$phongfresnelranges" "[0.5 1 4]"
+  "$nodecal"               1
+}

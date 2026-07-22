@@ -1,0 +1,6 @@
+{
+	"title": "[DrGBase] ULTRAKILL - Enemies - Act II & Act III",
+	"type": "npc",
+	"tags": ["fun"],
+	"ignore": ["source/*", "*.blend", "*.blend1", "*.md", "_backups/*"]
+}

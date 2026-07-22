@@ -1,0 +1,9 @@
+"UnlitGeneric"
+{
+    "$basetexture" "models/ultrakill_prelude_test/gutterman/gutterman"
+    "$model" "1"
+    "$pointsample" "1"
+    "$nomip" "1"
+    "$nolod" "1"
+    "$nodecal" "1"
+}

@@ -1,0 +1,13 @@
+// canon GuttermanEnraged material: shader ULTRAKILL/Master with
+// _UseAlbedoAsEmissive 1 (the whole albedo glows) = UnlitGeneric in Source.
+// Swapped onto the BODY slot via SetSubMaterial while enraged — the skeleton
+// slot stays stock (canon EnemySimplifier changes slot 0 only).
+"UnlitGeneric"
+{
+    "$basetexture" "models/ultrakill_prelude_test/gutterman/gutterman_enraged"
+    "$model" "1"
+    "$pointsample" "1"
+    "$nomip" "1"
+    "$nolod" "1"
+    "$nodecal" "1"
+}

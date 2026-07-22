@@ -1,0 +1,9 @@
+"UnlitGeneric"
+{
+    "$basetexture"           "models/ultrakill_test/virtue/virtueinsigniabigred"
+    "$additive"              "1"
+    "$nocull"                "1"
+    "$translucent"           "1"
+    "$vertexalpha"           "1"
+    "$color2"                "[1 0.4 0.4]"
+}

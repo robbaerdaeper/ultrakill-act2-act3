@@ -1,0 +1,6 @@
+"UnlitGeneric"
+{
+	"$basetexture" "models/ultrakill_prelude_test/power/power_weapon"
+	"$model" 1
+	"$color2" "[1.2 0.85 0.3]"
+}

@@ -1,0 +1,11 @@
+"UnlitGeneric"
+{
+  "$basetexture"   "effects/ukidol_beam_radiant"
+  "$additive"      1
+  "$translucent"   1
+  "$nofog"         1
+  "$ignorez"       1
+  "$vertexcolor"   1
+  "$vertexalpha"   1
+  "$nolod"         1
+}

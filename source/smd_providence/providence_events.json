@@ -1,0 +1,35 @@
+{
+ "idle": {
+  "file": "providence_idle.smd",
+  "frames": 61,
+  "stop": 1.9666668,
+  "fps": 30,
+  "events": []
+ },
+ "shoot": {
+  "file": "providence_shoot.smd",
+  "frames": 61,
+  "stop": 1.9666668,
+  "fps": 30,
+  "events": []
+ },
+ "beamprep": {
+  "file": "providence_beamprep.smd",
+  "frames": 61,
+  "stop": 1.9666668,
+  "fps": 30,
+  "events": []
+ },
+ "beamshoot": {
+  "file": "providence_beamshoot.smd",
+  "frames": 61,
+  "stop": 1.9666668,
+  "fps": 30,
+  "events": []
+ },
+ "eye_pos_smd": [
+  -0.0,
+  -0.02,
+  -0.0
+ ]
+}

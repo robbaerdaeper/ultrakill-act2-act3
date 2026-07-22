@@ -1,0 +1,6 @@
+"UnlitGeneric"
+{
+	"$basetexture" "models/ultrakill_prelude_test/hookpoint/hp_ring_metal"
+	"$model" 1
+	"$pointsamplemagfilter" 1
+}

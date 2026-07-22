@@ -1,0 +1,11 @@
+// Canon windup pillar: ULTRAKILL 'MinosSearchLights' material — a DARK
+// translucent silhouette cylinder (_Color 0.082 0.052 0.113), NOT a glow.
+// Needs a non-additive vertexcolor material so a near-black beam is visible.
+"UnlitGeneric"
+{
+	"$basetexture" "models/ultrakill_prelude_test/ferryman/ferryman_white"
+	"$translucent" "1"
+	"$vertexcolor" "1"
+	"$vertexalpha" "1"
+	"$nocull" "1"
+}

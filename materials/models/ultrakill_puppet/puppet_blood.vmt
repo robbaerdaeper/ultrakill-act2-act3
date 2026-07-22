@@ -1,0 +1,20 @@
+// Canonical Unity Puppet material — Source 1 approximation.
+// Transparency control lives entity-side via RENDERMODE_TRANSCOLOR + Color alpha
+// (more reliable than $alpha under render.MaterialOverride). $selfillum is OFF —
+// emissive pre-blend pass makes translucent surfaces look fully opaque.
+"VertexLitGeneric"
+{
+    "$basetexture"      "color/white"
+    "$model"            "1"
+    "$translucent"      "1"
+
+    "$color2"           "[1 0 0]"
+
+    "$rimlight"         "1"
+    "$rimlightcolor"    "[1 0 0]"
+    "$rimlightboost"    "1"
+    "$rimlightexponent" "2"
+
+    "$nodecal"          "1"
+    "$nocull"           "0"
+}

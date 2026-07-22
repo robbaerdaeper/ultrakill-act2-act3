@@ -1,0 +1,25 @@
+// Guttertank rocket proximity-windup sphere — clone of Kevin's
+// models/ultrakill/vfx/explosions/explosion_shockwave.vmt with the envmap
+// tint swapped to warning orange ($Color2 kills the albedo, ALL color comes
+// from $EnvMapTint — that's why runtime color modulation did nothing).
+"VertexlitGeneric"
+{
+	"$Basetexture" "models/ULTRAKILL/shared/White"
+	"$BumpMap" "dev\bump_normal"
+
+	"$Phong" 						"1"
+	"$Phongboost"					"0"
+	"$Phongfresnelranges"    "[0 0.1 0.35]"
+	"$Phongexponent"			"0"
+
+	"$EnvMap" "models/ultrakill/shared/WhiteCube"
+	"$EnvMapTint" "[ 1.0 0.38 0.08 ]"
+	"$EnvMapFresnel" "1"
+
+	"$Model" "1"
+	"$Additive" "1"
+	"$Translucent" "1"
+	"$Color2" "[0 0 0]"
+	"$NoCull" "1"
+	"$NoDecal" "1"
+}

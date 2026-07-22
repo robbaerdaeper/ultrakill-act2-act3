@@ -1,0 +1,6 @@
+"UnlitGeneric"
+{
+	"$basetexture" "models/ultrakill_prelude_test/leviathan/leviathan_body"
+	"$model" 1
+	"$pointsamplemagfilter" 1
+}

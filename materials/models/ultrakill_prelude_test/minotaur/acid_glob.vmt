@@ -1,0 +1,9 @@
+// Unlit canon-green acid glob (held meat prop + thrown projectile).
+// Hunter plastic is VertexLitGeneric -> near-black in shade; the goop must
+// stay bright ULTRAKILL green (GoopCloud 'Water 9': 0.19 1 0) everywhere.
+"UnlitGeneric"
+{
+	"$basetexture" "vgui/white"
+	"$model" 1
+	"$color2" "[0.30 1.10 0.08]"
+}

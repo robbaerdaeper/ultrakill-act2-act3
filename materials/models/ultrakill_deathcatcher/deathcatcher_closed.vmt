@@ -1,0 +1,8 @@
+"UnlitGeneric"
+{
+  "$basetexture"           "models/ultrakill_deathcatcher/deathcatcher_closed"
+  "$nocull"                1
+  "$model"                 1
+  "$pointsamplemagfilter"  1
+  "$nodecal"               1
+}

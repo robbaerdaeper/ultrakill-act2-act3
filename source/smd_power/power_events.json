@@ -1,0 +1,515 @@
+{
+ "idle": {
+  "file": "power_idle.smd",
+  "frames": 61,
+  "stop": 2.0,
+  "fps": 30,
+  "events": []
+ },
+ "intro": {
+  "file": "power_intro.smd",
+  "frames": 132,
+  "stop": 4.3333335,
+  "fps": 30,
+  "events": [
+   [
+    3.6518173,
+    "AnimationEvent",
+    0.0,
+    1
+   ]
+  ]
+ },
+ "backdash": {
+  "file": "power_backdash.smd",
+  "frames": 27,
+  "stop": 0.8333334,
+  "fps": 30,
+  "events": [
+   [
+    0.5659641,
+    "StopMoving",
+    0.0,
+    0
+   ],
+   [
+    0.7982045,
+    "StopAction",
+    0.0,
+    0
+   ]
+  ]
+ },
+ "death": {
+  "file": "power_death.smd",
+  "frames": 92,
+  "stop": 3.0000002,
+  "fps": 30,
+  "events": []
+ },
+ "enrage": {
+  "file": "power_enrage.smd",
+  "frames": 42,
+  "stop": 1.3333334,
+  "fps": 30,
+  "events": [
+   [
+    0.568306,
+    "CapeReset",
+    0.0,
+    0
+   ],
+   [
+    1.2927401,
+    "StopAction",
+    0.0,
+    0
+   ]
+  ]
+ },
+ "glaive": {
+  "file": "power_glaive.smd",
+  "frames": 142,
+  "stop": 4.666667,
+  "fps": 30,
+  "events": [
+   [
+    0.40437156,
+    "SpawnGlaive",
+    0.0,
+    0
+   ],
+   [
+    0.84898525,
+    "GlaiveToSpinner",
+    0.0,
+    0
+   ],
+   [
+    1.192821,
+    "SpinnerToGlaive",
+    0.0,
+    0
+   ],
+   [
+    1.5409836,
+    "LookAtTarget",
+    0.0,
+    0
+   ],
+   [
+    1.704918,
+    "StartStab",
+    0.0,
+    0
+   ],
+   [
+    1.989071,
+    "StopStab",
+    0.0,
+    0
+   ],
+   [
+    2.2732239,
+    "LookAtTarget",
+    0.0,
+    0
+   ],
+   [
+    2.2935178,
+    "ParryFlash",
+    0.0,
+    0
+   ],
+   [
+    2.5355191,
+    "StartSwing",
+    0.0,
+    0
+   ],
+   [
+    2.6885245,
+    "StopSwing",
+    0.0,
+    0
+   ],
+   [
+    3.0491803,
+    "GlaiveToSpinner",
+    0.0,
+    0
+   ],
+   [
+    3.1147542,
+    "FollowTarget",
+    0.0,
+    0
+   ],
+   [
+    3.5477479,
+    "ThrowSpinner",
+    0.0,
+    0
+   ],
+   [
+    4.2185793,
+    "FollowTarget",
+    0.0,
+    0
+   ],
+   [
+    4.5027323,
+    "StopAction",
+    0.0,
+    0
+   ]
+  ]
+ },
+ "juggle": {
+  "file": "power_juggle.smd",
+  "frames": 22,
+  "stop": 0.6666667,
+  "fps": 30,
+  "events": []
+ },
+ "rapier": {
+  "file": "power_rapier.smd",
+  "frames": 152,
+  "stop": 5.0000005,
+  "fps": 30,
+  "events": [
+   [
+    0.31820518,
+    "SpawnSword",
+    0.0,
+    0
+   ],
+   [
+    1.5456674,
+    "LookAtTarget",
+    0.0,
+    0
+   ],
+   [
+    1.674473,
+    "StartSwing",
+    0.0,
+    0
+   ],
+   [
+    1.8735363,
+    "StopSwing",
+    0.0,
+    0
+   ],
+   [
+    2.2248244,
+    "LookAtTarget",
+    0.0,
+    0
+   ],
+   [
+    2.3770492,
+    "StartSwing",
+    0.0,
+    0
+   ],
+   [
+    2.5733266,
+    "StopSwing",
+    0.0,
+    0
+   ],
+   [
+    2.892272,
+    "Backdash",
+    0.0,
+    0
+   ],
+   [
+    3.0562062,
+    "StopMoving",
+    0.0,
+    0
+   ],
+   [
+    3.0919006,
+    "FollowTarget",
+    0.0,
+    0
+   ],
+   [
+    3.2552693,
+    "LookAtTarget",
+    0.0,
+    1
+   ],
+   [
+    3.3372366,
+    "ChangeForwardSpeed",
+    125.0,
+    0
+   ],
+   [
+    3.3723652,
+    "StartStab",
+    0.0,
+    0
+   ],
+   [
+    3.7247634,
+    "StopStab",
+    0.0,
+    0
+   ],
+   [
+    4.2037473,
+    "FollowTarget",
+    0.0,
+    0
+   ],
+   [
+    4.320843,
+    "DespawnSword",
+    0.0,
+    0
+   ],
+   [
+    4.9180326,
+    "StopAction",
+    0.0,
+    0
+   ]
+  ]
+ },
+ "speardrop": {
+  "file": "power_speardrop.smd",
+  "frames": 22,
+  "stop": 0.6666667,
+  "fps": 30,
+  "events": []
+ },
+ "spearspawn": {
+  "file": "power_spearspawn.smd",
+  "frames": 57,
+  "stop": 1.8333334,
+  "fps": 30,
+  "events": [
+   [
+    0.7384856,
+    "SpawnSpear",
+    0.0,
+    0
+   ],
+   [
+    1.4683841,
+    "SpearAttack",
+    0.0,
+    0
+   ]
+  ]
+ },
+ "spearthrow": {
+  "file": "power_spearthrow.smd",
+  "frames": 72,
+  "stop": 2.3333335,
+  "fps": 30,
+  "events": [
+   [
+    0.9125683,
+    "LookAtTarget",
+    0.0,
+    0
+   ],
+   [
+    1.0983607,
+    "ThrowSpear",
+    0.0,
+    0
+   ],
+   [
+    1.7868851,
+    "FollowTarget",
+    0.0,
+    0
+   ],
+   [
+    2.240437,
+    "StopAction",
+    0.0,
+    0
+   ]
+  ]
+ },
+ "throw": {
+  "file": "power_throw.smd",
+  "frames": 102,
+  "stop": 3.3333335,
+  "fps": 30,
+  "events": [
+   [
+    0.7572209,
+    "SpawnSpinner",
+    0.0,
+    0
+   ],
+   [
+    2.4355972,
+    "ThrowSpinner",
+    0.0,
+    0
+   ],
+   [
+    3.2396564,
+    "StopAction",
+    0.0,
+    0
+   ]
+  ]
+ },
+ "zweihander": {
+  "file": "power_zweihander.smd",
+  "frames": 142,
+  "stop": 4.666667,
+  "fps": 30,
+  "events": [
+   [
+    0.4918033,
+    "SpawnZwei",
+    0.0,
+    0
+   ],
+   [
+    1.2412179,
+    "LookAtTarget",
+    0.0,
+    0
+   ],
+   [
+    1.3348947,
+    "StartSwing",
+    0.0,
+    0
+   ],
+   [
+    1.5339578,
+    "StopSwing",
+    0.0,
+    0
+   ],
+   [
+    1.8618267,
+    "FollowTarget",
+    0.0,
+    0
+   ],
+   [
+    2.2599533,
+    "LookAtTarget",
+    0.0,
+    0
+   ],
+   [
+    2.3302107,
+    "StartSwing",
+    0.0,
+    0
+   ],
+   [
+    2.5409837,
+    "StopSwing",
+    0.0,
+    0
+   ],
+   [
+    2.892272,
+    "FollowTarget",
+    0.0,
+    0
+   ],
+   [
+    2.9736843,
+    "VerticalSwing",
+    0.0,
+    0
+   ],
+   [
+    3.0796254,
+    "ParryFlash",
+    0.0,
+    0
+   ],
+   [
+    3.2786884,
+    "LookAtTarget",
+    0.0,
+    0
+   ],
+   [
+    3.325527,
+    "StartSwing",
+    0.0,
+    0
+   ],
+   [
+    3.529422,
+    "StopSwing",
+    0.0,
+    0
+   ],
+   [
+    3.856529,
+    "DespawnZwei",
+    0.0,
+    0
+   ],
+   [
+    4.17826,
+    "FollowTarget",
+    0.0,
+    0
+   ],
+   [
+    4.6068797,
+    "StopAction",
+    0.0,
+    0
+   ]
+  ]
+ },
+ "_boneinfo": {
+  "Weapon": [
+   0.1151,
+   2.3623,
+   0.3659
+  ],
+  "Head": [
+   0.0593,
+   2.9804,
+   0.1838
+  ],
+  "Spine_03": [
+   0.0117,
+   2.3831,
+   0.0424
+  ],
+  "Hand_L": [
+   0.8193,
+   1.4355,
+   0.101
+  ]
+ },
+ "_model": {
+  "model_node_scale": [
+   1.75,
+   1.75,
+   1.75
+  ],
+  "model_node_pos": [
+   0.0,
+   -3.380000114440918,
+   0.0
+  ],
+  "unit_scale_qc": 70.0
+ }
+}

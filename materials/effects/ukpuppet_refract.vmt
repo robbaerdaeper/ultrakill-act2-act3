@@ -1,0 +1,12 @@
+// Refract overlay used by ukpuppet_spawn FX. Uses HL2 built-in DUDV + normalmap —
+// the Refract shader REQUIRES a DUDV-format VTF (derivative UVs, not RGBA). Our
+// previous attempt copied a regular RGBA particle VTF as $dudvmap and produced
+// zero distortion. effects/water_warp01_dudv is a true DUDV-encoded HL2 asset.
+"Refract"
+{
+    "$normalmap"     "models/shadertest/water_normal"
+    "$dudvmap"       "effects/water_warp01_dudv"
+    "$refractamount" "0.18"
+    "$bluramount"    "1"
+    "$nowritez"      "1"
+}

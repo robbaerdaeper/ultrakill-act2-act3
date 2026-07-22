@@ -1,0 +1,6 @@
+_backups/
+*.md
+!README.md
+*.blend
+*.blend1
+*.log

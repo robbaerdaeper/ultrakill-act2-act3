@@ -1,0 +1,181 @@
+{
+ "idle": {
+  "file": "guttertank_idle.smd",
+  "frames": 61,
+  "stop": 1.9666668,
+  "fps": 30,
+  "events": [],
+  "state_speed": 1.0
+ },
+ "walk": {
+  "file": "guttertank_walk.smd",
+  "frames": 33,
+  "stop": 1.0333334,
+  "fps": 30,
+  "events": [
+   [
+    0.21746169,
+    "Footstep",
+    0.0,
+    0
+   ],
+   [
+    0.7658823,
+    "Footstep",
+    0.0,
+    0
+   ]
+  ],
+  "state_speed": 1.25
+ },
+ "punch": {
+  "file": "guttertank_punch.smd",
+  "frames": 46,
+  "stop": 1.4666667,
+  "fps": 30,
+  "events": [
+   [
+    0.5307061,
+    "PunchActive",
+    0.0,
+    0
+   ],
+   [
+    0.64993465,
+    "PunchStop",
+    0.0,
+    0
+   ],
+   [
+    1.3533784,
+    "StopAction",
+    0.0,
+    0
+   ]
+  ],
+  "state_speed": 1.2
+ },
+ "shoot": {
+  "file": "guttertank_shoot.smd",
+  "frames": 61,
+  "stop": 1.9666668,
+  "fps": 30,
+  "events": [
+   [
+    0.45503268,
+    "PredictTarget",
+    0.0,
+    0
+   ],
+   [
+    0.9640523,
+    "FireRocket",
+    0.0,
+    0
+   ],
+   [
+    1.897255,
+    "StopAction",
+    0.0,
+    0
+   ]
+  ],
+  "state_speed": 1.25
+ },
+ "landmine": {
+  "file": "guttertank_landmine.smd",
+  "frames": 41,
+  "stop": 1.3000001,
+  "fps": 30,
+  "events": [
+   [
+    0.74941176,
+    "PlaceMine",
+    0.0,
+    0
+   ],
+   [
+    1.2235293,
+    "StopAction",
+    0.0,
+    0
+   ]
+  ],
+  "state_speed": 1.5
+ },
+ "death": {
+  "file": "guttertank_death.smd",
+  "frames": 16,
+  "stop": 0.4666667,
+  "fps": 30,
+  "events": [],
+  "state_speed": 1.0
+ },
+ "punchstagger": {
+  "file": "guttertank_punchstagger.smd",
+  "frames": 61,
+  "stop": 1.9666668,
+  "fps": 30,
+  "events": [
+   [
+    0.06941177,
+    "FallImpact",
+    0.0,
+    0
+   ],
+   [
+    1.3188236,
+    "StopParryable",
+    0.0,
+    0
+   ],
+   [
+    1.8729166,
+    "StopAction",
+    0.0,
+    0
+   ]
+  ],
+  "state_speed": 1.0
+ },
+ "_boneinfo": {
+  "Shootpoint": [
+   -0.9167,
+   3.0833,
+   1.6667
+  ],
+  "Spine": [
+   -0.0,
+   1.5967,
+   -0.0
+  ],
+  "Hips": [
+   0.0,
+   1.3,
+   -0.0
+  ],
+  "Cannon": [
+   -0.9373,
+   1.55,
+   0.3434
+  ],
+  "Hand_L": [
+   1.0121,
+   0.8447,
+   -0.1172
+  ]
+ },
+ "_model": {
+  "model_node_scale": [
+   3.0,
+   3.0,
+   3.0
+  ],
+  "model_node_pos": [
+   0.0,
+   -4.5,
+   0.0
+  ],
+  "unit_scale_qc": 120.0
+ }
+}

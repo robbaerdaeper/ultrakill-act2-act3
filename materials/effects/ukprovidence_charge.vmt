@@ -1,0 +1,9 @@
+"UnlitGeneric"
+{
+	"$basetexture" "effects/ukprovidence_charge"
+	"$nocull" 1
+	"$vertexcolor" 1
+	"$vertexalpha" 1
+	"$pointsamplemagfilter" 1
+	"$translucent" 1
+}

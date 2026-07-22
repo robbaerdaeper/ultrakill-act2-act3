@@ -1,0 +1,12 @@
+// Divine Orthos сфера. $color2 — канонный циановый _Color из Unity-материала
+// (извлечённая текстура почти белая, цвет был в свойстве материала, не в текстуре).
+"VertexLitGeneric"
+{
+    "$basetexture"           "models/ultrakill_test/virtue/divine_orthos_sphere"
+    "$color2"                "[0.35 0.8 0.9]"
+    "$translucent"           "1"
+    "$nocull"                "1"
+    "$nodecal"               "1"
+    "$ignorez"               "0"
+    "$vertexalpha"           "1"
+}

@@ -1,0 +1,7 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "models/ultrakill_prelude_test/gutterman/gutterman_pod"
+	"$selfillum" "1"
+	"$pointsamplemagfilter" "1"
+	"$nocull" "0"
+}

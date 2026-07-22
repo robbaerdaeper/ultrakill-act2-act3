@@ -1,0 +1,25 @@
+// Sentry (Turret) — canon-faithful pixel-art look with emissive glow regions.
+// Canon: M_TurretBot uses T_TurretBot_NoGlow (albedo) + T_TurretBot_GlowMask (emission).
+// Source: $selfillum + $selfillummask reads the GlowMask alpha to light only the
+// canister/eye/antenna emissive regions. Tint can be modulated per-frame via the
+// UKSentryGlow MaterialProxy (state-driven pink/orange laser warm-up colour).
+"VertexLitGeneric"
+{
+    "$basetexture"          "models/ultrakill_prelude_test/sentry_diffuse"
+    "$ignorez"              "0"
+    "$nocull"               "0"
+    "$pointsamplemagfilter" "1"
+    "$nomip"                "1"
+    "$nolod"                "1"
+
+    "$selfillum"            "1"
+    "$selfillummask"        "models/ultrakill_prelude_test/sentry_emission"
+    "$selfillumtint"        "[1 1 1]"
+
+    "Proxies"
+    {
+        "UKSentryGlow"
+        {
+        }
+    }
+}

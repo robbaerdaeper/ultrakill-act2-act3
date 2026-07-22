@@ -1,0 +1,7 @@
+"UnlitGeneric"
+{
+	"$basetexture" "models/ultrakill_prelude_test/providence/providence_backglow"
+	"$model" 1
+	"$nocull" 1
+	"$pointsamplemagfilter" 1
+}

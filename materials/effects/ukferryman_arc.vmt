@@ -1,0 +1,10 @@
+// Canon windup arc sparks: ULTRAKILL 'lightning2' sprite (Lightning1 material,
+// additive particles crawling on the windup pillar).
+"UnlitGeneric"
+{
+	"$basetexture" "effects/ukferryman_arc"
+	"$additive" "1"
+	"$vertexcolor" "1"
+	"$vertexalpha" "1"
+	"$nocull" "1"
+}

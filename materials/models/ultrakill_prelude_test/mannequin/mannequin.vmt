@@ -1,0 +1,7 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "models/ultrakill_prelude_test/mannequin/mannequin"
+	"$model" 1
+	"$halflambert" 1
+	"$pointsamplemagfilter" 1
+}

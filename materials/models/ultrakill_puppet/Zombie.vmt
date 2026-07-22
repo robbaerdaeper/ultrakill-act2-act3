@@ -1,0 +1,14 @@
+"VertexLitGeneric"
+{
+    "$basetexture"      "models/ultrakill_puppet/puppet_blood"
+    "$translucent"      1
+    "$alpha"            0.666
+    "$color"            "{ 255 0 0 }"
+    "$selfillum"        1
+    "$rimlight"         1
+    "$rimlightcolor"    "{ 255 0 0 }"
+    "$rimlightboost"    1
+    "$rimlightexponent" 2
+    "$nodecal"          1
+    "$nocull"           0
+}

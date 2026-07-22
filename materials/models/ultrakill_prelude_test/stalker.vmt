@@ -1,0 +1,9 @@
+"VertexLitGeneric"
+{
+    "$basetexture"              "models/ultrakill_prelude_test/stalker_diffuse"
+    "$ignorez"                  "0"
+    "$nocull"                   "0"
+    "$pointsamplemagfilter"     "1"
+    "$nomip"                    "1"
+    "$nolod"                    "1"
+}

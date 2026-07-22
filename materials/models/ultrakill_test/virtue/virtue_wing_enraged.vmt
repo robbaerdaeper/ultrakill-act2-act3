@@ -1,0 +1,10 @@
+// Крыло Virtue в ярости — красная текстура. Цвет из текстуры, color_white модулирует.
+"UnlitGeneric"
+{
+    "$basetexture"   "models/ultrakill_test/virtue/divine_enraged_wings"
+    "$translucent"   "1"
+    "$nocull"        "1"
+    "$vertexalpha"   "1"
+    "$vertexcolor"   "1"
+    "$nodecal"       "1"
+}

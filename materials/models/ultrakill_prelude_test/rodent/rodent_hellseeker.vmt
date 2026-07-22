@@ -1,0 +1,7 @@
+"UnlitGeneric"
+{
+	"$basetexture" "models/ultrakill_prelude_test/rodent/rodent_hellseeker"
+	"$nocull"      "1"
+	"$nodecal"     "1"
+	"$model"       "1"
+}

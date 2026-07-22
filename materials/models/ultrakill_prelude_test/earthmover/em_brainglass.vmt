@@ -1,0 +1,8 @@
+"UnlitGeneric"
+{
+	"$basetexture" "models/ultrakill_prelude_test/earthmover/em_brainglass"
+	"$model" 1
+	"$pointsamplemagfilter" 1
+	"$translucent" 1
+	"$alpha" "0.55"
+}

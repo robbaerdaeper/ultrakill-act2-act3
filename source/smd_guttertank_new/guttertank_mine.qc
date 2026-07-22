@@ -1,0 +1,13 @@
+// Guttertank landmine — canon Landmine prefab (ProBuilder bake).
+$modelname "ultrakill_prelude_test/guttertank_mine.mdl"
+$upaxis Y
+$scale 20.0
+$staticprop
+$body "body" "guttertank_mine.smd"
+$cdmaterials "models/ultrakill_prelude_test/guttertank/"
+$surfaceprop "metal"
+$illumposition 0 0 0
+$sequence idle "guttertank_mine.smd"
+$collisionmodel "guttertank_mine.smd" {
+    $automass
+}

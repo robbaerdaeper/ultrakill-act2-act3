@@ -1,0 +1,6 @@
+"UnlitGeneric"
+{
+	"$basetexture" "models/ultrakill_prelude_test/mirror_reaper/mirror_reaper"
+	"$model" "1"
+	"$pointsamplemagfilter" 1
+}

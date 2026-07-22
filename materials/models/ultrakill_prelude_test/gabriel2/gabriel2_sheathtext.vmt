@@ -1,0 +1,8 @@
+"UnlitGeneric"
+{
+	"$basetexture" "models/ultrakill_prelude_test/gabriel2/gabriel2_sheathtext"
+	"$model" 1
+	"$pointsamplemagfilter" 1
+	"$nodecal" 1
+	"$translucent" 1
+}

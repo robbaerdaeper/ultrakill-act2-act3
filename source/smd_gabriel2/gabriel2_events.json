@@ -1,0 +1,655 @@
+{
+ "idle": {
+  "file": "gabriel2_idle.smd",
+  "frames": 52,
+  "stop": 1.6666667,
+  "fps": 30,
+  "events": []
+ },
+ "basiccombo": {
+  "file": "gabriel2_basiccombo.smd",
+  "frames": 132,
+  "stop": 4.3333335,
+  "fps": 30,
+  "events": [
+   [
+    0.36111113,
+    "AttackFlash",
+    1,
+    0,
+    ""
+   ],
+   [
+    0.74410784,
+    "LookAtTarget",
+    0,
+    0,
+    ""
+   ],
+   [
+    0.8425926,
+    "DamageStartRight",
+    30,
+    0,
+    ""
+   ],
+   [
+    0.9520202,
+    "DamageStopRight",
+    0,
+    0,
+    ""
+   ],
+   [
+    1.3459597,
+    "LookAtTarget",
+    0,
+    0,
+    ""
+   ],
+   [
+    1.4335017,
+    "DamageStartRight",
+    30,
+    0,
+    ""
+   ],
+   [
+    1.5210438,
+    "DamageStopRight",
+    0,
+    0,
+    ""
+   ],
+   [
+    1.9149833,
+    "LookAtTarget",
+    0,
+    0,
+    ""
+   ],
+   [
+    2.013468,
+    "DamageStartLeft",
+    35,
+    0,
+    ""
+   ],
+   [
+    2.303095,
+    "DamageStopLeft",
+    0,
+    0,
+    ""
+   ],
+   [
+    2.5058923,
+    "FollowTarget",
+    0,
+    0,
+    ""
+   ],
+   [
+    2.6221833,
+    "EnrageTeleport",
+    1,
+    0,
+    ""
+   ],
+   [
+    2.6388888,
+    "Parryable",
+    0,
+    0,
+    ""
+   ],
+   [
+    2.746633,
+    "SetForwardSpeed",
+    150,
+    0,
+    ""
+   ],
+   [
+    2.8122897,
+    "LookAtTarget",
+    0,
+    0,
+    ""
+   ],
+   [
+    2.8998318,
+    "DamageStartBoth",
+    35,
+    0,
+    ""
+   ],
+   [
+    3.0639732,
+    "DamageStopBoth",
+    0,
+    0,
+    ""
+   ],
+   [
+    3.3703704,
+    "FollowTarget",
+    0,
+    0,
+    ""
+   ],
+   [
+    3.9722226,
+    "StopAction",
+    0,
+    0,
+    ""
+   ]
+  ]
+ },
+ "fastcombodash": {
+  "file": "gabriel2_fastcombodash.smd",
+  "frames": 47,
+  "stop": 1.5000001,
+  "fps": 30,
+  "events": [
+   [
+    1.2448001,
+    "AttackFlash",
+    1,
+    0,
+    ""
+   ],
+   [
+    1.3940738,
+    "StartDash",
+    0,
+    0,
+    ""
+   ]
+  ]
+ },
+ "fastcombo": {
+  "file": "gabriel2_fastcombo.smd",
+  "frames": 92,
+  "stop": 3.0000002,
+  "fps": 30,
+  "events": [
+   [
+    0.17168726,
+    "LookAtTarget",
+    0,
+    0,
+    ""
+   ],
+   [
+    0.2659136,
+    "DamageStartLeft",
+    20,
+    0,
+    ""
+   ],
+   [
+    0.3719742,
+    "DamageStopLeft",
+    0,
+    0,
+    ""
+   ],
+   [
+    0.48206922,
+    "LookAtTarget",
+    0,
+    0,
+    ""
+   ],
+   [
+    0.61699843,
+    "DamageStartLeft",
+    20,
+    0,
+    ""
+   ],
+   [
+    0.70199037,
+    "DamageStopLeft",
+    0,
+    0,
+    ""
+   ],
+   [
+    0.7389278,
+    "LookAtTarget",
+    0,
+    0,
+    ""
+   ],
+   [
+    0.8544468,
+    "DamageStartRight",
+    20,
+    0,
+    ""
+   ],
+   [
+    0.95459044,
+    "DamageStopRight",
+    0,
+    0,
+    ""
+   ],
+   [
+    1.2116729,
+    "LookAtTarget",
+    0,
+    0,
+    ""
+   ],
+   [
+    1.2654206,
+    "DamageStartKick",
+    20,
+    0,
+    ""
+   ],
+   [
+    1.3603638,
+    "DamageStopKick",
+    0,
+    0,
+    ""
+   ],
+   [
+    1.4451318,
+    "FollowTarget",
+    0,
+    0,
+    ""
+   ],
+   [
+    1.5712749,
+    "SetForwardSpeed",
+    100,
+    0,
+    ""
+   ],
+   [
+    1.621212,
+    "EnrageTeleport",
+    4,
+    0,
+    ""
+   ],
+   [
+    1.67877,
+    "Parryable",
+    0,
+    0,
+    ""
+   ],
+   [
+    1.8075578,
+    "LookAtTarget",
+    0,
+    0,
+    ""
+   ],
+   [
+    1.9422629,
+    "DamageStartBoth",
+    35,
+    0,
+    ""
+   ],
+   [
+    2.2185764,
+    "DamageStopBoth",
+    0,
+    0,
+    ""
+   ],
+   [
+    2.3181818,
+    "FollowTarget",
+    0,
+    0,
+    ""
+   ],
+   [
+    2.8442264,
+    "StopAction",
+    0,
+    0,
+    ""
+   ]
+  ]
+ },
+ "swordscombine": {
+  "file": "gabriel2_swordscombine.smd",
+  "frames": 47,
+  "stop": 1.5000001,
+  "fps": 30,
+  "events": [
+   [
+    1.1610185,
+    "Gattai",
+    0,
+    0,
+    ""
+   ],
+   [
+    1.4507576,
+    "CombinedSwordAttack",
+    0,
+    0,
+    ""
+   ]
+  ]
+ },
+ "swordscombinedthrow": {
+  "file": "gabriel2_swordscombinedthrow.smd",
+  "frames": 67,
+  "stop": 2.1666667,
+  "fps": 30,
+  "events": [
+   [
+    0.7276936,
+    "EnrageTeleport",
+    4,
+    0,
+    ""
+   ],
+   [
+    0.9027778,
+    "AttackFlash",
+    0,
+    0,
+    ""
+   ],
+   [
+    1.2584176,
+    "ThrowSwords",
+    0,
+    0,
+    ""
+   ],
+   [
+    2.0791247,
+    "StopAction",
+    0,
+    0,
+    ""
+   ]
+  ]
+ },
+ "juggle": {
+  "file": "gabriel2_juggle.smd",
+  "frames": 22,
+  "stop": 0.6666667,
+  "fps": 30,
+  "events": []
+ },
+ "enrage": {
+  "file": "gabriel2_enrage.smd",
+  "frames": 36,
+  "stop": 1.1500001,
+  "fps": 30,
+  "events": [
+   [
+    0.5837121,
+    "UnEnrage",
+    0,
+    0,
+    ""
+   ],
+   [
+    0.8770201,
+    "StopAction",
+    0,
+    0,
+    ""
+   ]
+  ]
+ },
+ "throwcombo": {
+  "file": "gabriel2_throwcombo.smd",
+  "frames": 117,
+  "stop": 3.8333335,
+  "fps": 30,
+  "events": [
+   [
+    0.5130471,
+    "Parryable",
+    0,
+    0,
+    ""
+   ],
+   [
+    0.65824914,
+    "LookAtTarget",
+    0,
+    0,
+    ""
+   ],
+   [
+    0.861532,
+    "DamageStartBoth",
+    35,
+    0,
+    ""
+   ],
+   [
+    0.9873737,
+    "DamageStopBoth",
+    0,
+    0,
+    ""
+   ],
+   [
+    1.2608806,
+    "EnrageTeleport",
+    12,
+    0,
+    ""
+   ],
+   [
+    1.6843435,
+    "Parryable",
+    0,
+    0,
+    ""
+   ],
+   [
+    1.800505,
+    "LookAtTarget",
+    0,
+    0,
+    ""
+   ],
+   [
+    1.9263468,
+    "DamageStartKick",
+    45,
+    0,
+    ""
+   ],
+   [
+    1.9553872,
+    "DamageStartBoth",
+    45,
+    0,
+    ""
+   ],
+   [
+    2.1005893,
+    "DamageStopBoth",
+    0,
+    0,
+    ""
+   ],
+   [
+    2.4103534,
+    "FollowTarget",
+    0,
+    0,
+    ""
+   ],
+   [
+    2.574916,
+    "Gattai",
+    0,
+    0,
+    ""
+   ],
+   [
+    2.6422758,
+    "EnrageTeleport",
+    4,
+    0,
+    ""
+   ],
+   [
+    2.7297978,
+    "AttackFlash",
+    0,
+    0,
+    ""
+   ],
+   [
+    2.9234006,
+    "ThrowSwords",
+    0,
+    0,
+    ""
+   ],
+   [
+    3.7074914,
+    "StopAction",
+    0,
+    0,
+    ""
+   ]
+  ]
+ },
+ "_info": {
+  "head": {
+   "bone": "head",
+   "world": [
+    0.3837,
+    166.1814,
+    20.4487
+   ]
+  },
+  "spine.002": {
+   "bone": "spine.002",
+   "world": [
+    0.0718,
+    131.4447,
+    6.3971
+   ]
+  },
+  "spine": {
+   "bone": "spine",
+   "world": [
+    0.0,
+    107.8822,
+    1.6588
+   ]
+  },
+  "weaponbone.L": {
+   "bone": "weaponbone.L",
+   "world": [
+    55.8828,
+    119.4004,
+    4.6863
+   ]
+  },
+  "weaponbone.R": {
+   "bone": "weaponbone.R",
+   "world": [
+    -55.9256,
+    120.247,
+    5.0748
+   ]
+  },
+  "hand.L": {
+   "bone": "hand.L",
+   "world": [
+    57.6338,
+    122.0506,
+    3.6266
+   ]
+  },
+  "hand.R": {
+   "bone": "hand.R",
+   "world": [
+    -57.6436,
+    122.9235,
+    4.0271
+   ]
+  },
+  "Root": {
+   "bone": "Root",
+   "world": [
+    0.0,
+    6.9468,
+    1.6588
+   ]
+  },
+  "foot.L": {
+   "bone": "foot.L",
+   "world": [
+    22.4373,
+    47.7255,
+    -12.1414
+   ]
+  },
+  "foot.R": {
+   "bone": "foot.R",
+   "world": [
+    -43.8966,
+    21.7862,
+    -7.8477
+   ]
+  },
+  "Halo": {
+   "bone": "Halo",
+   "world": [
+    -0.9554,
+    182.9482,
+    -1.8701
+   ]
+  }
+ },
+ "_scale": {
+  "qc_scale": 1.2,
+  "note": "Swords_Held units (0.03 m each); x1.2 = source units (40 su/m)"
+ },
+ "_model_offset_m": [
+  0.0,
+  -3.5,
+  0.0
+ ],
+ "_materials": {
+  "GabrielSwordJustice": {
+   "vmt": "gabriel2_gabrielswordjustice",
+   "tex": "T_GabeSword_Blue"
+  },
+  "GabrielSwordSplendor": {
+   "vmt": "gabriel2_gabrielswordsplendor",
+   "tex": "T_GabeSword_Gold"
+  },
+  "GabrielWeaponTrail": {
+   "vmt": "gabriel2_gabrielweapontrail",
+   "tex": "Basic Color - White"
+  },
+  "GabrielEnrage": {
+   "vmt": null,
+   "tex": "T_Gabriel_Red 1"
+  },
+  "GabrielWingsEnrage": {
+   "vmt": null,
+   "tex": "T_Wings_Red"
+  }
+ }
+}

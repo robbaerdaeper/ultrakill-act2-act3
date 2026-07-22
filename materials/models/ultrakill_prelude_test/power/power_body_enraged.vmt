@@ -1,0 +1,6 @@
+"UnlitGeneric"
+{
+	"$basetexture" "models/ultrakill_prelude_test/power/power_body_enraged"
+	"$model" 1
+	"$pointsamplemagfilter" 1
+}

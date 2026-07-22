@@ -1,0 +1,12 @@
+// Canon Ferryman lightning bolt: ULTRAKILL 'Lightning_Still' sprite
+// (TestLightning material). Alpha baked into RGB, rotated 90deg so the bolt
+// runs along the beam U axis for render.DrawBeam.
+"UnlitGeneric"
+{
+	"$basetexture" "effects/ukferryman_bolt"
+	"$additive" "1"
+	"$vertexcolor" "1"
+	"$vertexalpha" "1"
+	"$nocull" "1"
+	"$ignorez" "0"
+}

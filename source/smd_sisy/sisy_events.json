@@ -1,0 +1,207 @@
+{
+ "attachments": {
+  "boulder": {
+   "bone": "hand.L.006",
+   "local": [
+    0.1137,
+    0.9016,
+    -0.0278
+   ]
+  }
+ },
+ "boulder_center_handlocal": [
+  0.1137,
+  0.9016,
+  -0.0278
+ ],
+ "anims": {
+  "idle": {
+   "file": "sisy_idle.smd",
+   "frames": 61,
+   "stop": 2.0,
+   "fps": 30,
+   "events": []
+  },
+  "walking": {
+   "file": "sisy_walking.smd",
+   "frames": 40,
+   "stop": 1.2666668,
+   "fps": 30,
+   "events": []
+  },
+  "jump": {
+   "file": "sisy_jump.smd",
+   "frames": 61,
+   "stop": 2.0,
+   "fps": 30,
+   "events": []
+  },
+  "landing": {
+   "file": "sisy_landing.smd",
+   "frames": 34,
+   "stop": 1.1,
+   "fps": 30,
+   "events": [
+    [
+     0.73410565,
+     "StopAction",
+     0,
+     0
+    ]
+   ]
+  },
+  "knockdown": {
+   "file": "sisy_knockdown.smd",
+   "frames": 67,
+   "stop": 2.1666667,
+   "fps": 30,
+   "events": [
+    [
+     0.32881662,
+     "FallSound",
+     0,
+     0
+    ],
+    [
+     2.0140018,
+     "StopAction",
+     0,
+     0
+    ]
+   ]
+  },
+  "stomp": {
+   "file": "sisy_stomp.smd",
+   "frames": 42,
+   "stop": 1.3333334,
+   "fps": 30,
+   "events": [
+    [
+     0.6901536,
+     "StompExplosion",
+     0,
+     0
+    ],
+    [
+     1.1579946,
+     "StopAction",
+     0,
+     0
+    ]
+   ]
+  },
+  "overheadslam": {
+   "file": "sisy_overheadslam.smd",
+   "frames": 61,
+   "stop": 2.0,
+   "fps": 30,
+   "events": [
+    [
+     0.6603774,
+     "ExtendArm",
+     1.25,
+     0
+    ],
+    [
+     1.264151,
+     "RetractArm",
+     1,
+     0
+    ]
+   ]
+  },
+  "horizontalswing": {
+   "file": "sisy_horizontalswing.smd",
+   "frames": 102,
+   "stop": 3.3333335,
+   "fps": 30,
+   "events": [
+    [
+     1.1949686,
+     "ExtendArm",
+     1,
+     0
+    ],
+    [
+     2.2746332,
+     "RetractArm",
+     1,
+     0
+    ]
+   ]
+  },
+  "stab": {
+   "file": "sisy_stab.smd",
+   "frames": 112,
+   "stop": 3.6666667,
+   "fps": 30,
+   "events": [
+    [
+     1.4003887,
+     "ExtendArm",
+     1,
+     0
+    ],
+    [
+     2.9718173,
+     "RetractArm",
+     1,
+     0
+    ]
+   ]
+  },
+  "airstab": {
+   "file": "sisy_airstab.smd",
+   "frames": 82,
+   "stop": 2.6666667,
+   "fps": 30,
+   "events": [
+    [
+     0.8551993,
+     "ExtendArm",
+     1,
+     0
+    ],
+    [
+     1.5782313,
+     "CancelAirStab",
+     0,
+     0
+    ],
+    [
+     1.8736638,
+     "FlyToArm",
+     1,
+     0
+    ]
+   ]
+  },
+  "airstabcancel": {
+   "file": "sisy_airstabcancel.smd",
+   "frames": 61,
+   "stop": 2.0,
+   "fps": 30,
+   "events": []
+  }
+ },
+ "textures": {
+  "MassUnlit": {
+   "_Cells": "Caustics_Cells",
+   "_DitherTexture": "64x64 pixel tile checker for blender",
+   "_MainTex": "scorpionboss_tex_v2",
+   "_Perlin": "Caustics_Perlin",
+   "_RainDrops": "WaterDrops",
+   "_RainTrails": "WaterTrails"
+  },
+  "Sisyphus": {
+   "_Cells": "Caustics_Cells",
+   "_CubeTex": "studio_06",
+   "_DitherTexture": "64x64 pixel tile checker for blender",
+   "_MainTex": "T_ArmStretcher",
+   "_NoiseTex": "RandomNormal",
+   "_Perlin": "Caustics_Perlin",
+   "_RainDrops": "WaterDrops",
+   "_RainTrails": "WaterTrails"
+  }
+ }
+}

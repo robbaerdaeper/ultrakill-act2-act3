@@ -1,0 +1,6 @@
+"UnlitGeneric"
+{
+	"$basetexture" "models/ultrakill_prelude_test/earthmover/em_tower"
+	"$model" 1
+	"$pointsamplemagfilter" 1
+}

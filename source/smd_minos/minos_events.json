@@ -1,0 +1,467 @@
+{
+ "corpse": {
+  "idle": {
+   "file": "corpse_idle.smd",
+   "frames": 121,
+   "stop": 3.966667,
+   "fps": 30,
+   "events": [
+    [
+     0.32585412,
+     "StopAction",
+     0
+    ]
+   ]
+  },
+  "slamright": {
+   "file": "corpse_slamright.smd",
+   "frames": 166,
+   "stop": 5.466667,
+   "fps": 30,
+   "events": [
+    [
+     2.4505746,
+     "SwingStart",
+     0
+    ],
+    [
+     2.8131075,
+     "SwingEnd",
+     0
+    ],
+    [
+     4.128276,
+     "ResetColliders",
+     0
+    ],
+    [
+     4.205888,
+     "StopAction",
+     0
+    ]
+   ]
+  },
+  "slamleft": {
+   "file": "corpse_slamleft.smd",
+   "frames": 166,
+   "stop": 5.466667,
+   "fps": 30,
+   "events": [
+    [
+     2.092414,
+     "SwingStart",
+     0
+    ],
+    [
+     2.7521837,
+     "SwingEnd",
+     0
+    ],
+    [
+     4.0905747,
+     "ResetColliders",
+     0
+    ],
+    [
+     4.180973,
+     "StopAction",
+     0
+    ]
+   ]
+  },
+  "slammiddle": {
+   "file": "corpse_slammiddle.smd",
+   "frames": 160,
+   "stop": 5.3,
+   "fps": 30,
+   "events": [
+    [
+     2.1382759,
+     "SwingStart",
+     0
+    ],
+    [
+     2.5951724,
+     "SwingEnd",
+     0
+    ],
+    [
+     3.7648277,
+     "ResetColliders",
+     0
+    ],
+    [
+     3.996079,
+     "StopAction",
+     0
+    ]
+   ]
+  },
+  "slammiddlelow": {
+   "file": "corpse_slammiddlelow.smd",
+   "frames": 166,
+   "stop": 5.466667,
+   "fps": 30,
+   "events": [
+    [
+     2.1489656,
+     "SwingStart",
+     0
+    ],
+    [
+     2.7333333,
+     "SwingEnd",
+     0
+    ],
+    [
+     3.8803508,
+     "ResetColliders",
+     0
+    ],
+    [
+     4.071724,
+     "StopAction",
+     0
+    ]
+   ]
+  },
+  "parryright": {
+   "file": "corpse_parryright.smd",
+   "frames": 91,
+   "stop": 2.966667,
+   "fps": 30,
+   "events": [
+    [
+     1.3708047,
+     "ResetColliders",
+     0
+    ],
+    [
+     2.7518392,
+     "StopAction",
+     0
+    ]
+   ]
+  },
+  "parryleft": {
+   "file": "corpse_parryleft.smd",
+   "frames": 91,
+   "stop": 2.966667,
+   "fps": 30,
+   "events": [
+    [
+     1.4628736,
+     "ResetColliders",
+     0
+    ],
+    [
+     2.7313793,
+     "StopAction",
+     0
+    ]
+   ]
+  },
+  "spawnblackhole": {
+   "file": "corpse_spawnblackhole.smd",
+   "frames": 121,
+   "stop": 3.966667,
+   "fps": 30,
+   "events": [
+    [
+     1.3471795,
+     "SpawnBlackHole",
+     0
+    ],
+    [
+     1.9927478,
+     "LaunchBlackHole",
+     0
+    ],
+    [
+     3.5973563,
+     "StopAction",
+     0
+    ]
+   ]
+  },
+  "phaseparasite": {
+   "file": "corpse_phaseparasite.smd",
+   "frames": 160,
+   "stop": 5.3,
+   "fps": 30,
+   "events": [
+    [
+     0.56655174,
+     "ShutEye",
+     0
+    ],
+    [
+     1.6265517,
+     "ShutEye",
+     1
+    ],
+    [
+     2.788433,
+     "ResetColliders",
+     1
+    ],
+    [
+     3.6551726,
+     "SpawnParasites",
+     1
+    ],
+    [
+     4.897931,
+     "StopAction",
+     1
+    ]
+   ]
+  },
+  "death": {
+   "file": "corpse_death.smd",
+   "frames": 112,
+   "stop": 3.671643,
+   "fps": 30,
+   "events": [
+    [
+     2.6367815,
+     "Impact",
+     0
+    ],
+    [
+     3.671643,
+     "DeathOver",
+     0
+    ]
+   ]
+  },
+  "blackholespawnpos": [
+   -1.0,
+   120.0,
+   35.5000114440918
+  ],
+  "handcenters": {
+   "HandCenter_(1)": [
+    15.7413,
+    -28.6422,
+    -24.9802
+   ],
+   "HandCenter_(1).001": [
+    15.3622,
+    -31.5585,
+    -25.5736
+   ],
+   "HandCenter": [
+    -21.251,
+    -28.4278,
+    -15.217
+   ],
+   "HandCenter_(1).002": [
+    -20.8235,
+    -31.1462,
+    -16.4118
+   ]
+  }
+ },
+ "arm": {
+  "idle": {
+   "file": "arm_idle.smd",
+   "frames": 51,
+   "stop": 1.6333334,
+   "fps": 30,
+   "events": [
+    [
+     0.8245955,
+     "IntroEnd",
+     0
+    ]
+   ]
+  },
+  "intro": {
+   "file": "arm_intro.smd",
+   "frames": 212,
+   "stop": 7.0000005,
+   "fps": 30,
+   "events": [
+    [
+     2.969697,
+     "StartShaking",
+     0
+    ],
+    [
+     4.560606,
+     "StopShaking",
+     0
+    ],
+    [
+     5.5840487,
+     "StartEncounter",
+     0
+    ],
+    [
+     5.585859,
+     "BigImpact",
+     0
+    ],
+    [
+     6.7624793,
+     "IntroEnd",
+     0
+    ]
+   ]
+  },
+  "slamdown": {
+   "file": "arm_slamdown.smd",
+   "frames": 81,
+   "stop": 2.6333334,
+   "fps": 30,
+   "events": [
+    [
+     1.2501684,
+     "Slam",
+     0
+    ],
+    [
+     2.4870372,
+     "StopAction",
+     0
+    ]
+   ]
+  },
+  "slamleft": {
+   "file": "arm_slamleft.smd",
+   "frames": 81,
+   "stop": 2.6333334,
+   "fps": 30,
+   "events": [
+    [
+     1.4363637,
+     "Slam",
+     1
+    ],
+    [
+     2.526936,
+     "StopAction",
+     0
+    ]
+   ]
+  },
+  "slamright": {
+   "file": "arm_slamright.smd",
+   "frames": 81,
+   "stop": 2.6333334,
+   "fps": 30,
+   "events": [
+    [
+     1.2368687,
+     "Slam",
+     2
+    ],
+    [
+     2.5402358,
+     "StopAction",
+     0
+    ]
+   ]
+  },
+  "flinch": {
+   "file": "arm_flinch.smd",
+   "frames": 21,
+   "stop": 0.6333334,
+   "fps": 30,
+   "events": [
+    [
+     0.56563216,
+     "StopAction",
+     0
+    ]
+   ]
+  },
+  "retreat": {
+   "file": "arm_retreat.smd",
+   "frames": 46,
+   "stop": 1.4666667,
+   "fps": 30,
+   "events": [
+    [
+     1.3958621,
+     "EndEncounter",
+     0
+    ]
+   ]
+  }
+ },
+ "parasite": {
+  "spawn": {
+   "file": "parasite_spawn.smd",
+   "frames": 60,
+   "stop": 1.96,
+   "fps": 30,
+   "events": [
+    [
+     0.99220264,
+     "StopAction",
+     0
+    ]
+   ]
+  },
+  "idle": {
+   "file": "parasite_idle.smd",
+   "frames": 264,
+   "stop": 8.76,
+   "fps": 30,
+   "events": []
+  },
+  "shoot1": {
+   "file": "parasite_shoot1.smd",
+   "frames": 144,
+   "stop": 4.76,
+   "fps": 30,
+   "events": [
+    [
+     1.116138,
+     "SpawnProjectile",
+     0
+    ],
+    [
+     2.6017296,
+     "ShootProjectile",
+     0
+    ],
+    [
+     3.6041582,
+     "StopAction",
+     0
+    ]
+   ]
+  },
+  "shoot2": {
+   "file": "parasite_shoot2.smd",
+   "frames": 132,
+   "stop": 4.36,
+   "fps": 30,
+   "events": [
+    [
+     0.43600002,
+     "SpawnProjectile",
+     0
+    ],
+    [
+     1.4884138,
+     "ShootProjectile",
+     0
+    ],
+    [
+     3.2925518,
+     "StopAction",
+     0
+    ]
+   ]
+  },
+  "projectilespawnpos": [
+   -0.2012,
+   2.2227,
+   5.7319
+  ]
+ }
+}

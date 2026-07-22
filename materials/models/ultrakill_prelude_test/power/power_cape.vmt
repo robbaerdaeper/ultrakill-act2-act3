@@ -1,0 +1,7 @@
+"UnlitGeneric"
+{
+	"$basetexture" "models/ultrakill_prelude_test/power/power_cape"
+	"$model" 1
+	"$translucent" 1
+	"$nocull" 1
+}

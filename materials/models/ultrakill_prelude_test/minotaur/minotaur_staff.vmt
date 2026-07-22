@@ -1,0 +1,6 @@
+"UnlitGeneric"
+{
+	"$basetexture" "models/ultrakill_prelude_test/minotaur/minotaur_staff"
+	"$model" 1
+	"$pointsamplemagfilter" 1
+}

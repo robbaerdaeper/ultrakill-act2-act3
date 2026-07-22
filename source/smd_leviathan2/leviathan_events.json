@@ -1,0 +1,707 @@
+{
+ "idle": {
+  "file": "leviathan_idle.smd",
+  "frames": 72,
+  "stop": 2.3333335,
+  "fps": 30,
+  "events": []
+ },
+ "ascendlong": {
+  "file": "leviathan_ascendlong.smd",
+  "frames": 121,
+  "stop": 4.0,
+  "fps": 30,
+  "events": [
+   [
+    1.4930966,
+    "StartBodyTracking",
+    0
+   ],
+   [
+    2.121212,
+    "Roar",
+    0
+   ],
+   [
+    3.1717172,
+    "BiteResetRotation",
+    0
+   ],
+   [
+    3.4141414,
+    "StartHeadTracking",
+    0
+   ],
+   [
+    3.7369554,
+    "StopAction",
+    0
+   ]
+  ]
+ },
+ "ascend": {
+  "file": "leviathan_ascend.smd",
+  "frames": 61,
+  "stop": 2.0,
+  "fps": 30,
+  "events": [
+   [
+    0.9998207,
+    "StartHeadTracking",
+    0
+   ],
+   [
+    1.6565657,
+    "StopAction",
+    0
+   ]
+  ]
+ },
+ "descend": {
+  "file": "leviathan_descend.smd",
+  "frames": 92,
+  "stop": 3.0000002,
+  "fps": 30,
+  "events": [
+   [
+    1.8030303,
+    "BigSplash",
+    0
+   ],
+   [
+    2.9318182,
+    "DescendEnd",
+    0
+   ]
+  ]
+ },
+ "bite": {
+  "file": "leviathan_bite.smd",
+  "frames": 162,
+  "stop": 5.3333335,
+  "fps": 30,
+  "events": [
+   [
+    0.88984513,
+    "BiteStopTracking",
+    0
+   ],
+   [
+    1.3758892,
+    "BiteDamageStart",
+    0
+   ],
+   [
+    1.670512,
+    "BiteDamageStop",
+    0
+   ],
+   [
+    4.5698805,
+    "BiteResetRotation",
+    0
+   ],
+   [
+    5.167494,
+    "BiteEnd",
+    0
+   ]
+  ]
+ },
+ "biteparried": {
+  "file": "leviathan_biteparried.smd",
+  "frames": 102,
+  "stop": 3.3333335,
+  "fps": 30,
+  "events": [
+   [
+    2.793914,
+    "BiteResetRotation",
+    0
+   ],
+   [
+    3.1259823,
+    "StopAction",
+    0
+   ]
+  ]
+ },
+ "burststart": {
+  "file": "leviathan_burststart.smd",
+  "frames": 37,
+  "stop": 1.1666667,
+  "fps": 30,
+  "events": [
+   [
+    1.1342592,
+    "ProjectileBurstStart",
+    0
+   ]
+  ]
+ },
+ "burstloop": {
+  "file": "leviathan_burstloop.smd",
+  "frames": 22,
+  "stop": 0.6666667,
+  "fps": 30,
+  "events": [
+   [
+    0.052188553,
+    "ProjectileBurstStart",
+    0
+   ]
+  ]
+ },
+ "burststop": {
+  "file": "leviathan_burststop.smd",
+  "frames": 67,
+  "stop": 2.1666667,
+  "fps": 30,
+  "events": [
+   [
+    1.625,
+    "StopAction",
+    0
+   ]
+  ]
+ },
+ "beamstart": {
+  "file": "leviathan_beamstart.smd",
+  "frames": 31,
+  "stop": 1.0,
+  "fps": 30,
+  "events": [
+   [
+    0.4273859,
+    "BeamCharge",
+    0
+   ],
+   [
+    0.6680498,
+    "BeamTurn",
+    0
+   ],
+   [
+    0.96377546,
+    "BeamStart",
+    0
+   ]
+  ]
+ },
+ "beamloop": {
+  "file": "leviathan_beamloop.smd",
+  "frames": 82,
+  "stop": 2.6666667,
+  "fps": 30,
+  "events": []
+ },
+ "beamend": {
+  "file": "leviathan_beamend.smd",
+  "frames": 61,
+  "stop": 2.0,
+  "fps": 30,
+  "events": [
+   [
+    1.8340249,
+    "StopAction",
+    0
+   ]
+  ]
+ },
+ "death": {
+  "file": "leviathan_death.smd",
+  "frames": 121,
+  "stop": 4.0,
+  "fps": 30,
+  "events": [
+   [
+    2.3492079,
+    "HeadExplode",
+    0
+   ],
+   [
+    3.6565447,
+    "DeathEnd",
+    0
+   ]
+  ]
+ },
+ "tailwhip": {
+  "file": "leviathan_tailwhip.smd",
+  "frames": 162,
+  "stop": 5.3333335,
+  "fps": 30,
+  "events": [
+   [
+    0.20202021,
+    "BigSplash",
+    0
+   ],
+   [
+    2.3434343,
+    "SwingStart",
+    0
+   ],
+   [
+    3.1380472,
+    "SwingEnd",
+    0
+   ],
+   [
+    5.2121215,
+    "ActionOver",
+    0
+   ]
+  ]
+ },
+ "taildeath": {
+  "file": "leviathan_taildeath.smd",
+  "frames": 61,
+  "stop": 2.0,
+  "fps": 30,
+  "events": []
+ },
+ "ouroboros": {
+  "file": "leviathan_ouroboros.smd",
+  "frames": 121,
+  "stop": 4.0,
+  "fps": 30,
+  "events": []
+ },
+ "bones": [
+  {
+   "bone": "Bone001",
+   "pos": [
+    -0.045,
+    84.124,
+    7.456
+   ],
+   "cumscale": 2000.0
+  },
+  {
+   "bone": "Bone039",
+   "pos": [
+    0.142,
+    69.564,
+    -5.54
+   ],
+   "cumscale": 2000.0
+  },
+  {
+   "bone": "Bone041",
+   "pos": [
+    0.344,
+    72.454,
+    -10.246
+   ],
+   "cumscale": 2000.0
+  },
+  {
+   "bone": "Bone044",
+   "pos": [
+    -0.041,
+    77.535,
+    27.712
+   ],
+   "cumscale": 2000.0
+  },
+  {
+   "bone": "Bone045",
+   "pos": [
+    -0.029,
+    65.325,
+    36.243
+   ],
+   "cumscale": 2000.0
+  },
+  {
+   "bone": "Bone046",
+   "pos": [
+    -0.015,
+    50.206,
+    33.724
+   ],
+   "cumscale": 2000.0
+  },
+  {
+   "bone": "Bone047",
+   "pos": [
+    -0.003,
+    32.424,
+    28.551
+   ],
+   "cumscale": 2000.0
+  },
+  {
+   "bone": "Bone048",
+   "pos": [
+    0.003,
+    16.29,
+    21.486
+   ],
+   "cumscale": 2000.0
+  },
+  {
+   "bone": "Bone049",
+   "pos": [
+    0.002,
+    4.203,
+    9.057
+   ],
+   "cumscale": 2000.0
+  },
+  {
+   "bone": "Bone050",
+   "pos": [
+    -0.001,
+    -12.139,
+    14.092
+   ],
+   "cumscale": 2000.0
+  },
+  {
+   "bone": "Bone051",
+   "pos": [
+    -0.004,
+    -22.468,
+    26.154
+   ],
+   "cumscale": 2000.0
+  },
+  {
+   "bone": "Bone052",
+   "pos": [
+    -0.007,
+    -27.953,
+    42.1
+   ],
+   "cumscale": 2000.0
+  },
+  {
+   "bone": "Bone053",
+   "pos": [
+    -0.009,
+    -28.858,
+    58.31
+   ],
+   "cumscale": 2000.0
+  },
+  {
+   "bone": "Bone054",
+   "pos": [
+    -0.011,
+    -27.085,
+    74.528
+   ],
+   "cumscale": 2000.0
+  },
+  {
+   "bone": "Bone055",
+   "pos": [
+    -0.012,
+    -23.772,
+    90.338
+   ],
+   "cumscale": 2000.0
+  },
+  {
+   "bone": "Bone056",
+   "pos": [
+    -0.013,
+    -19.515,
+    106.371
+   ],
+   "cumscale": 2000.0
+  },
+  {
+   "bone": "Bone057",
+   "pos": [
+    -0.013,
+    -14.67,
+    121.823
+   ],
+   "cumscale": 2000.0
+  },
+  {
+   "bone": "Bone058",
+   "pos": [
+    -0.012,
+    -6.073,
+    136.24
+   ],
+   "cumscale": 2000.0
+  },
+  {
+   "bone": "Bone059",
+   "pos": [
+    -0.009,
+    5.639,
+    147.076
+   ],
+   "cumscale": 2000.0
+  },
+  {
+   "bone": "Bone060",
+   "pos": [
+    -0.005,
+    19.446,
+    156.9
+   ],
+   "cumscale": 2000.0
+  },
+  {
+   "bone": "Bone061",
+   "pos": [
+    -0.002,
+    31.973,
+    166.6
+   ],
+   "cumscale": 2000.0
+  },
+  {
+   "bone": "Bone062",
+   "pos": [
+    0.0,
+    42.26,
+    180.158
+   ],
+   "cumscale": 2000.0
+  },
+  {
+   "bone": "Bone063",
+   "pos": [
+    -0.0,
+    45.799,
+    195.72
+   ],
+   "cumscale": 2000.0
+  },
+  {
+   "bone": "Bone064",
+   "pos": [
+    -0.003,
+    43.527,
+    212.469
+   ],
+   "cumscale": 2000.0
+  },
+  {
+   "bone": "Bone065",
+   "pos": [
+    -0.007,
+    36.592,
+    226.661
+   ],
+   "cumscale": 2000.0
+  },
+  {
+   "bone": "Bone066",
+   "pos": [
+    -0.012,
+    25.712,
+    239.449
+   ],
+   "cumscale": 2000.0
+  },
+  {
+   "bone": "Bone067",
+   "pos": [
+    -0.017,
+    13.822,
+    250.328
+   ],
+   "cumscale": 2000.0
+  },
+  {
+   "bone": "Bone068",
+   "pos": [
+    -0.023,
+    1.102,
+    261.698
+   ],
+   "cumscale": 2000.0
+  },
+  {
+   "bone": "Bone069",
+   "pos": [
+    -0.028,
+    -9.909,
+    272.875
+   ],
+   "cumscale": 2000.0
+  },
+  {
+   "bone": "Bone070",
+   "pos": [
+    -0.034,
+    -21.006,
+    285.667
+   ],
+   "cumscale": 2000.0
+  },
+  {
+   "bone": "Bone071",
+   "pos": [
+    -0.039,
+    -31.437,
+    297.686
+   ],
+   "cumscale": 2000.0
+  },
+  {
+   "bone": "Bone072",
+   "pos": [
+    -0.044,
+    -42.489,
+    310.426
+   ],
+   "cumscale": 2000.0
+  },
+  {
+   "bone": "Bone073",
+   "pos": [
+    -0.048,
+    -52.972,
+    322.51
+   ],
+   "cumscale": 2000.0
+  },
+  {
+   "bone": "Bone074",
+   "pos": [
+    -0.053,
+    -64.05,
+    335.279
+   ],
+   "cumscale": 2000.0
+  },
+  {
+   "bone": "Bone075",
+   "pos": [
+    -0.059,
+    -74.533,
+    347.361
+   ],
+   "cumscale": 2000.0
+  },
+  {
+   "bone": "Bone076",
+   "pos": [
+    -0.063,
+    -85.661,
+    360.187
+   ],
+   "cumscale": 2000.0
+  },
+  {
+   "bone": "Bone077",
+   "pos": [
+    -0.069,
+    -96.12,
+    372.243
+   ],
+   "cumscale": 2000.0
+  },
+  {
+   "bone": "Bone078",
+   "pos": [
+    -0.073,
+    -107.151,
+    384.957
+   ],
+   "cumscale": 2000.0
+  },
+  {
+   "bone": "Bone079",
+   "pos": [
+    -0.079,
+    -117.508,
+    396.894
+   ],
+   "cumscale": 2000.0
+  },
+  {
+   "bone": "Bone080",
+   "pos": [
+    -0.09,
+    -128.712,
+    409.81
+   ],
+   "cumscale": 2000.0
+  },
+  {
+   "bone": "Bone081",
+   "pos": [
+    -0.093,
+    -139.194,
+    421.893
+   ],
+   "cumscale": 2000.0
+  },
+  {
+   "bone": "Bone082",
+   "pos": [
+    -0.1,
+    -150.167,
+    434.54
+   ],
+   "cumscale": 2000.0
+  },
+  {
+   "bone": "Bone083",
+   "pos": [
+    -0.105,
+    -160.319,
+    446.241
+   ],
+   "cumscale": 2000.0
+  },
+  {
+   "bone": "Bone084",
+   "pos": [
+    -0.108,
+    -170.205,
+    457.636
+   ],
+   "cumscale": 2000.0
+  },
+  {
+   "bone": "Bone085",
+   "pos": [
+    -0.119,
+    -181.075,
+    470.155
+   ],
+   "cumscale": 2000.0
+  },
+  {
+   "bone": "Bone086",
+   "pos": [
+    -0.127,
+    -193.627,
+    484.623
+   ],
+   "cumscale": 2000.0
+  }
+ ],
+ "heart_pos": [
+  0.3617,
+  84.4538,
+  -4.7811
+ ],
+ "shootpoint_pos": [
+  -0.0376,
+  67.836,
+  -9.1405
+ ],
+ "tailtip_pos": [
+  -0.1272,
+  -193.6267,
+  484.6226
+ ],
+ "headbone_pos": [
+  -0.0449,
+  84.1243,
+  7.4555
+ ]
+}

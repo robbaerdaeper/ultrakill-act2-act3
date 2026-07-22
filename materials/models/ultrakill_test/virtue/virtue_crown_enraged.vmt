@@ -1,0 +1,7 @@
+"VertexLitGeneric"
+{
+    "$basetexture"           "models/ultrakill_test/virtue/divine_enraged_main"
+    "$selfillum"             "1"
+    "$nocull"                "1"
+    "$nodecal"               "1"
+}

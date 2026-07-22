@@ -1,0 +1,8 @@
+"UnlitGeneric"
+{
+    "$basetexture"           "sprites/light_glow02_add"
+    "$additive"              "1"
+    "$translucent"           "1"
+    "$nocull"                "1"
+    "$color2"                "[1.0 0.27 0.67]"
+}

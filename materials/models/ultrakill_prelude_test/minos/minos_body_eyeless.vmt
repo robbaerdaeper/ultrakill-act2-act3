@@ -1,0 +1,6 @@
+"UnlitGeneric"
+{
+	"$basetexture" "models/ultrakill_prelude_test/minos/minos_body_eyeless"
+	"$model" 1
+	"$pointsamplemagfilter" 1
+}

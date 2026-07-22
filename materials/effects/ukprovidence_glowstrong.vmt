@@ -1,0 +1,10 @@
+"UnlitGeneric"
+{
+	"$basetexture" "effects/ukprovidence_glowstrong"
+	"$nocull" 1
+	"$vertexcolor" 1
+	"$vertexalpha" 1
+	"$pointsamplemagfilter" 1
+	"$additive" 1
+	"$translucent" 1
+}

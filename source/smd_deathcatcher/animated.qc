@@ -1,0 +1,40 @@
+$modelname "ultrakill_deathcatcher/animated.mdl"
+$scale 4000
+$bodygroup "frame" {
+    studio "anim/frame_00"
+    studio "anim/frame_01"
+    studio "anim/frame_02"
+    studio "anim/frame_03"
+    studio "anim/frame_04"
+    studio "anim/frame_05"
+    studio "anim/frame_06"
+    studio "anim/frame_07"
+    studio "anim/frame_08"
+    studio "anim/frame_09"
+    studio "anim/frame_10"
+    studio "anim/frame_11"
+    studio "anim/frame_12"
+    studio "anim/frame_13"
+    studio "anim/frame_14"
+    studio "anim/frame_15"
+    studio "anim/frame_16"
+    studio "anim/frame_17"
+    studio "anim/frame_18"
+    studio "anim/frame_19"
+    studio "anim/frame_20"
+    studio "anim/frame_21"
+    studio "anim/frame_22"
+    studio "anim/frame_23"
+    studio "anim/frame_24"
+    studio "anim/frame_25"
+    studio "anim/frame_26"
+    studio "anim/frame_27"
+    studio "anim/frame_28"
+}
+$cdmaterials "models/ultrakill_deathcatcher/"
+$illumposition 0 0 12
+$surfaceprop "flesh"
+$contents "solid"
+$staticprop
+$origin 0 0 25
+$sequence Idle "anims/idle" loop fps 30

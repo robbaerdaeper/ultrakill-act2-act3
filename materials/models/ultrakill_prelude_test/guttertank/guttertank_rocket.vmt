@@ -1,0 +1,7 @@
+"UnlitGeneric"
+{
+	"$basetexture" "models/ultrakill_prelude_test/guttertank/guttertank_rocket"
+	"$model" 1
+	"$pointsamplemagfilter" 1
+	"$nodecal" 1
+}

@@ -1,0 +1,10 @@
+"UnlitGeneric"
+{
+	"$basetexture" "models/ultrakill_prelude_test/minos/minos_eyes"
+	"$model" 1
+	"$pointsamplemagfilter" 1
+	"$additive" 1
+	"$vertexcolor" 1
+	"$nocull" 1
+	"$alpha" "0.55"
+}
