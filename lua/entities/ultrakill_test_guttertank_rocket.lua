@@ -178,6 +178,7 @@ if SERVER then
     if IsValid(self) then
     self:EmitSound( UKGuttertank.SOUND.MineBeep, 80, 80 + pitchincrease, 0.8 )
     pitchincrease = pitchincrease + 6
+    end
     end)
     if self.UKGT_LoopSound then self.UKGT_LoopSound:ChangePitch( 160, 0.1 ) end
   end
