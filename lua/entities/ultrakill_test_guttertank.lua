@@ -316,7 +316,7 @@ if SERVER then
       and self:GetPos():Distance( enemy:GetPos() ) or ( 4 * UNIT )
     self.UKGT_LungeMax = math.Clamp( dist - 1.5 * UNIT, 1.5 * UNIT, 6 * UNIT )
     self:UKGT_PlayAction( "Punch", "Punch", ACTION.Punch.duration )
-    self:EmitSound( SOUND.PunchPrep, 85 )
+    UltrakillBase.SoundScript( "Ultrakill_GuttertankPunchPrep", self:GetPos() )
     -- canon unparryableFlash x5 in front of the swing check
     if self.CreateAlert then
       self:CreateAlert( self:WorldSpaceCenter() + self:GetForward() * ( 1.5 * UNIT ), 2, 2 )
@@ -434,7 +434,7 @@ if SERVER then
         ent:SetVelocity( self:GetForward() * 1000 + Vector( 0, 0, 300 ) )
       end
 
-      self:EmitSound( SOUND.PunchHit, 90 )
+      UltrakillBase.SoundScript( "Ultrakill_GuttertankPunchHit", self:GetPos() )
     end
   end
 
@@ -454,7 +454,7 @@ if SERVER then
     if not self.UKGT_StaggerImpactDone and t >= cfg.fallImpact then
       -- canon FallImpact: clang, 0.1 self-damage, parryable until StopParryable
       self.UKGT_StaggerImpactDone = true
-      self:EmitSound( SOUND.FallImpact, 90 )
+      UltrakillBase.SoundScript( "Ultrakill_GuttertankFallImpact", self:GetPos() )
       util.ScreenShake( self:GetPos(), 6, 50, 0.4, 500 )
 
       self:SetHealth( math.max( self:Health() - 100, 1 ) ) -- canon 0.1 x1000
@@ -496,7 +496,7 @@ if SERVER then
     self.UKGT_RocketFired = false
     self.UKGT_RocketAim = nil
     self:UKGT_PlayAction( "Shoot", "Shoot", ACTION.Shoot.duration )
-    self:EmitSound( SOUND.RocketPrep, 85, 100, 0.66 )
+    UltrakillBase.SoundScript( "Ultrakill_GuttertankFire", self:GetPos() )
   end
 
   function ENT:UKGT_ProcessRocket( enemy )
@@ -603,7 +603,7 @@ if SERVER then
       rocket:SetVelocity( dir * speed )
     end
 
-    self:EmitSound( SOUND.RocketFire, 90 )
+    UltrakillBase.SoundScript( "Ultrakill_GuttertankRocketFirePrep", self:GetPos() )
     local fx = EffectData()
     fx:SetOrigin( muzzle )
     fx:SetNormal( dir )
@@ -635,7 +635,7 @@ if SERVER then
   function ENT:UKGT_StartMine()
     self.UKGT_MinePlaced = false
     self:UKGT_PlayAction( "Landmine", "Landmine", ACTION.Landmine.duration )
-    self:EmitSound( SOUND.MinePrep, 80, 100, 0.4 )
+    UltrakillBase.SoundScript( "Ultrakill_GuttertankMinePrep", self:GetPos() )
     -- canon: mineCooldown = Random(2,3)
     self.UKGT_MineCooldown = math.Rand( 2, 3 )
   end
@@ -812,7 +812,7 @@ if SERVER then
     self.UKGT_ParryWindowUntil = nil
     self:SetParryable( false )
     self:UKGT_StopLoops()
-    self:EmitSound( SOUND.Death, 90 )
+    UltrakillBase.SoundScript( "Ultrakill_GuttertankDeath", self:GetPos() )
     self:UKGT_PlayAction( "Death", "Death", ACTION.Death.duration )
 
     local doneAt = CurTime() + ACTION.Death.duration
