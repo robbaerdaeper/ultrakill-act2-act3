@@ -830,6 +830,7 @@ function UKIdol.SpawnReflect( idol, dmg )
     if mag > 0 then
       local normal = ( hitPos - idol:WorldSpaceCenter() ):GetNormalized()
       local reflected = incomingVel - 2 * incomingVel:Dot( normal ) * normal
+      infl:SetPos(infl:GetPos() + reflected)
       infl:SetVelocity( reflected * 0.85 )
       if infl.SetParried then infl:SetParried( true ) end
     end
