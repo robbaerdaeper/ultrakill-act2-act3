@@ -2,7 +2,7 @@ if SERVER then AddCSLuaFile() end
 
 -- Power (Greater Angel, Layer 8 / 8-3 Disintegration Loop).
 -- Canon sources: Power.cs, PowerVoiceController.cs, EnemyCooldowns.cs,
--- gameprefabs 'Power' prefab dump (power_probe2.py).
+-- gameprefabs 'Power' prefab dump (tools/steamcmd/power_probe2.py).
 
 UKPower = UKPower or {}
 
@@ -13,17 +13,17 @@ UKPower.CATEGORY = "ULTRAKILL Test"
 
 -- Workshop pack convention: canon HP x 1000. Power: 40 HP.
 UKPower.HP = 40000
-UKPower.UNIT = 20 -- su per canon meter; 2026-07-10: model rescaled x0.5 (Kevin-scale), was 40
+UKPower.UNIT = 20 -- su per canon meter
 
 -- Canon damage (SwingCheck2 / Projectile dumps). Melee enemyDamage = 0:
 -- Powers only hurt the machine, never other enemies.
-UKPower.SWING_DAMAGE = 20        -- root SwingCheck (sword/glaive/stab)
-UKPower.ZWEI_DAMAGE = 30         -- ZweiCheck boxes
-UKPower.SPEAR_THROWN_DAMAGE = 35 -- PowerThrownSpear (strong, speed 150)
-UKPower.SPINNER_THROWN_DAMAGE = 35 -- PowerSpinnerThrown (homing 66 deg/s, speed 50)
-UKPower.ORB_DAMAGE = 25          -- zwei Hell orb pair (speed 100)
-UKPower.BEAM_DAMAGE = 35         -- unparryable beam between the orbs
-UKPower.SPINNER_ENEMY_MULT = 0.25 -- canon enemyDamageMultiplier
+UKPower.SWING_DAMAGE = 200        -- root SwingCheck (sword/glaive/stab)
+UKPower.ZWEI_DAMAGE = 300         -- ZweiCheck boxes
+UKPower.SPEAR_THROWN_DAMAGE = 350 -- PowerThrownSpear (strong, speed 150)
+UKPower.SPINNER_THROWN_DAMAGE = 350 -- PowerSpinnerThrown (homing 66 deg/s, speed 50)
+UKPower.ORB_DAMAGE = 250          -- zwei Hell orb pair (speed 100)
+UKPower.BEAM_DAMAGE = 350         -- unparryable beam between the orbs
+UKPower.SPINNER_ENEMY_MULT = 2.5 -- canon enemyDamageMultiplier
 
 UKPower.SPEAR_SPEED = 150        -- m/s
 UKPower.SPINNER_SPEED = 50       -- m/s
@@ -31,9 +31,9 @@ UKPower.SPINNER_TURNRATE = 66    -- deg/s (canon turnSpeed)
 UKPower.ORB_SPEED = 100          -- m/s
 
 -- canon Power.Update self-defense / cooldowns
-UKPower.JUGGLE_LAUNCH = 35       -- m/s up on parry
+UKPower.JUGGLE_LAUNCH = 140       -- m/s up on parry
 UKPower.JUGGLE_DMG_TAKEN_MULT = 0.75
-UKPower.GRAVITY = 9.81           -- m/s^2 (Unity default; rb.useGravity in juggle)
+UKPower.GRAVITY = 40           -- m/s^2 (Unity default; rb.useGravity in juggle)
 
 local SND = "ultrakill_prelude_test/power/"
 UKPower.SOUND = {
@@ -81,7 +81,7 @@ UKPower.CLASS = {
 -- ultrakill_test_power_sounds.lua) so they get boss subtitles. Keys absent
 -- here (Hurt/HurtBig/Death/Scream) have no canon captions -> plain EmitSound.
 UKPower.VOICE_SCRIPT = {
-  Intro = true, Enrage = true, Taunt = true, CheapShot = true,
+  Intro = true, SpecialIntro1 = true, Enrage = true, Taunt = true, CheapShot = true,
   Rapier = true, Greatsword = true, Spear = true, OverHere = true,
   Glaive = true, GlaiveThrow = true,
 }
@@ -90,9 +90,8 @@ UKPower.VOICE_SCRIPT = {
 function UKPower.ScaleAttackDamage( ent, damage )
   if not IsValid( ent ) then return damage end
   if ent:IsPlayer() then
-    -- round-4 2026-07-10: FLAT canon to the player — plytakedmgmult defaults
-    -- to 0.1 and quietly cut every hit to 10% (Sentry r3 policy, pack-wide)
-    return damage
+    local cv = GetConVar( "drg_ultrakill_plytakedmgmult" )
+    return damage * math.max( cv and cv:GetFloat() or 1, 0 )
   end
   if ent.IsUltrakillNextbot then return damage end
   local cv = GetConVar( "drg_ultrakill_dmgmult" )
