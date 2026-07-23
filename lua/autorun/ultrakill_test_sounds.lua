@@ -1,4 +1,4 @@
-hook.Add("PopulateToolMenu", "NewUltrakillMusic", function()
+	hook.Add("PopulateToolMenu", "NewUltrakillMusic", function()
 		spawnmenu.AddToolMenuOption("DrGBase", "ULTRAKILL", "drgbase_ultrakill_music_act23", "ACT 2+3 Music Settings", "", "", function(Panel)
 				Panel:CheckBox( "Enable Gutterman Music", "drg_ultrakill_guttermanmusic" )
 				Panel:ControlHelp( "Enable/Disable Gutterman's Music." )

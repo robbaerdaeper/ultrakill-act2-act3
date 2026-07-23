@@ -220,7 +220,7 @@ if SERVER then
     self:UKGutterman_UnstuckPlayers()
     self:UKGutterman_CheckGroundSlam()
     self:UKGutterman_Stabilize()
-    self:NextThink( CurTime() + 0.05 )
+    self:NextThink( CurTime() )
     return true
   end
 

@@ -87,6 +87,7 @@ local MAIN_TAB = {
     "ultrakill_swordsmachine",  -- 1-1 boss encounter (variants live in Machines/Other)
     "ultrakill_hideousmass",
     "ultrakill_test_gutterman_boss",
+    "ultrakill_test_power_boss1",
     -- 2-4 "Court of the Corpse King" — first encounter (Arm) + the Corpse (1:1)
     "ultrakill_test_minos_arm",
     "ultrakill_test_minos_corpse",

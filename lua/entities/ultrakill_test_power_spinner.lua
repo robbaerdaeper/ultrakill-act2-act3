@@ -18,7 +18,7 @@ ENT.Spawnable = false
 
 ENT.OnContactDelete = -1
 ENT.UltrakillBase_CustomCollisionEnabled = true
-ENT.UltrakillBase_CustomCollisionBounds = Vector( 30, 30, 30 )
+ENT.UltrakillBase_CustomCollisionBounds = Vector( 60, 60, 60 )
 
 if SERVER then
 
@@ -93,25 +93,13 @@ if SERVER then
 
   function ENT:OnContact( ent )
     if self:GetParried() then return self:ParryCollide( 300 ) end
-    if IsValid( ent ) and ent.UKPower_IsPower then return end
 
-    if IsValid( ent ) and ( ent:IsPlayer() or ent:IsNPC() or ent:IsNextBot() ) then
-      local amount
-      if ent:IsPlayer() then
-        amount = UKPower.ScaleAttackDamage( ent, UKPower.SPINNER_THROWN_DAMAGE )
-      elseif ent.IsUltrakillNextbot then
-        -- canon enemyDamageMultiplier 0.25; round-3 sweep (2026-07-10):
-        -- x1000 without pre-division landed 175k — convention is canon x100
-        -- LANDED, pre-divided (victim multiplies x20 itself)
-        amount = UKNpcDmg.PreMult( ent, self:GetOwner(),
-          UKPower.SPINNER_THROWN_DAMAGE * UKPower.SPINNER_ENEMY_MULT * 100 )
-      else
-        amount = UKPower.SPINNER_THROWN_DAMAGE * UKPower.SPINNER_ENEMY_MULT
-      end
-      self:DealDamage( ent, amount, nil, DMG_SLASH )
-    end
-    self:UKP_Explode( self:GetPos() )
-    SafeRemoveEntityDelayed( self, engine.TickInterval() )
+  UltrakillBase.SoundScript( "Ultrakill_Explosion_1", self:GetPos() )
+
+  self:ScreenShake( 2500, 10, 1.5, 6500 )
+  self:Explosion( self:GetPos(), 200, vForce, 130, 0.25 )
+  self:CreateExplosion( self:GetPos(), self:GetAngles(), 1.25 )
+  SafeRemoveEntityDelayed( self, engine.TickInterval() )
   end
 
 else

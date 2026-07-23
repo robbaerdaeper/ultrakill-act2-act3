@@ -48,3 +48,14 @@ reg( "Glaive1", "glaive1.wav", PRIO_ANNOUNCE, "Glaive!" )
 reg( "Glaive2", "glaive2.wav", PRIO_ANNOUNCE, "Glaive!" )
 reg( "GlaiveThrow1", "glaivethrow1.wav", PRIO_ANNOUNCE, "Take THIS!" )
 reg( "GlaiveThrow2", "glaivethrow2.wav", PRIO_ANNOUNCE, "Take THIS!" )
+
+
+local mPowerMandelIntro_Subtitles = {
+
+	{ "HALT!", 0 },
+	{ "Where is Gabriel and what have you done to him?", 1 },
+
+}
+
+UltrakillBase.AddSoundScript( "Ultrakill_Power_SpecialIntro1", SND .. "specialintro1.wav", 0, 1, 1, nil, false, 0, true )
+UltrakillBase.AddVoiceSoundScript( "Ultrakill_Power_SpecialIntro1", 3, mPowerMandelIntro_Subtitles )

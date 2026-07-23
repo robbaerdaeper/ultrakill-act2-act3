@@ -30,6 +30,7 @@ local PREFIX_MAP = {
   { prefix = "ultrakill_test_gutterman_casketless", cat = CAT_SECRETS },
   { prefix = "ultrakill_test_gutterman_pod",        cat = CAT_SECRETS },
   { prefix = "ultrakill_test_gutterman_boss",       cat = CAT_BOSSES  },
+  { prefix = "ultrakill_test_power_boss1",       cat = CAT_BOSSES  },
   { prefix = "ultrakill_swordsmachine_agony",       cat = CAT_SECRETS },
   { prefix = "ultrakill_swordsmachine_tundra",      cat = CAT_SECRETS },
   { prefix = "ultrakill_swordsmachine_normal",      cat = CAT_ENEMIES },
