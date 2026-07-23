@@ -38,7 +38,7 @@ ENT.RangeAttackRange = 0
 ENT.ReachEnemyRange = 4 * UNIT
 ENT.AvoidEnemyRange = 0
 
-ENT.Acceleration = 25 * UNIT -- canon acceleration 1000 is effectively instant
+ENT.Acceleration = 1000 * UNIT -- canon acceleration 1000 is effectively instant
 ENT.Deceleration = 25 * UNIT
 ENT.WalkSpeed = UKFerryman.MOVE_SPEED
 ENT.RunSpeed = UKFerryman.MOVE_SPEED
@@ -605,8 +605,12 @@ if SERVER then
     self:UKF_EndAction()
 
     local chest = self:UKF_ChestPos()
-    UKFerryman.Explode( self, chest, UKFerryman.LIGHTNING_RADIUS,
-      UKFerryman.LIGHTNING_DAMAGE, { electric = true, safeForPlayer = true } )
+
+    util.ScreenShake( self:GetPos(), 26, 60, 1.2, 10000 )
+    local fx = EffectData()
+    fx:SetOrigin( chest )
+    fx:SetRadius( UKFerryman.LIGHTNING_RADIUS )
+    util.Effect( "Ultrakill_Explosion", fx, true, true )
 
     local fx = EffectData()
     fx:SetOrigin( Vector( chest.x, chest.y, self:GetPos().z ) )
@@ -722,7 +726,9 @@ if SERVER then
     local oar = self:UKF_GetAttachmentPos( "oar",
       self:GetPos() + self:GetForward() * ( 3 * UNIT ) )
     local ground = Vector( oar.x, oar.y, self:GetPos().z )
-    UKFerryman.Explode( self, ground, UKFerryman.SLAM_RADIUS, UKFerryman.SLAM_DAMAGE, {} )
+    UltrakillBase.SoundScript( "Ultrakill_Explosion_1", self:GetPos() )
+    self:CreateExplosion( self:GetPos() + self:GetForward() * 5, self:GetAngles(), 1 )
+
     self:UKF_Footstep( 0.75 )
   end
 

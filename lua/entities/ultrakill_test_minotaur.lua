@@ -19,7 +19,7 @@ include( "autorun/ultrakill_test_minotaur_shared.lua" )
 
 ENT.Type = "nextbot"
 ENT.Base = "ultrakillbase_nextbot"
-ENT.PrintName = "Minotaur"
+ENT.PrintName = "Minotaur (Sandbox)"
 ENT.Author = "ultragmod"
 ENT.Spawnable = true
 ENT.AdminOnly = false
@@ -30,13 +30,14 @@ ENT.ModelScale = 1.0
 ENT.SpawnHealth = UKMinotaur.HP
 -- canon NavAgent r=3 m, h=11 m at 20 su/m; the long body beyond this square
 -- is covered by the frozen VPhysics body colliders (UKM_Colliders)
-ENT.CollisionBounds = Vector( 64, 64, 220 )
+ENT.CollisionBounds = Vector( 128, 128, 220 )
 ENT.SurroundingBounds = Vector( 320, 320, 360 )
 ENT.RagdollOnDeath = false
 ENT.Factions = { "FACTION_ULTRAKILL_ENEMIES" }
 ENT.UltrakillBase_WeightClass = "Superheavy"
 
 ENT.UKMinotaur_IsMinotaur = true -- own explosions/acid never hurt Minotaurs
+ENT.IsBoss = false
 
 local UNIT = UKMinotaur.UNIT
 
@@ -46,12 +47,11 @@ ENT.RangeAttackRange = 0
 ENT.ReachEnemyRange = UKMinotaur.STOP_DISTANCE
 ENT.AvoidEnemyRange = 0
 
--- canon NavMeshAgent: speed 50 m/s, acceleration 100 m/s^2 (~instant)
+
 ENT.Acceleration = 100 * UNIT
-ENT.Deceleration = 100 * UNIT
-ENT.WalkSpeed = UKMinotaur.MOVE_SPEED
-ENT.RunSpeed = UKMinotaur.MOVE_SPEED
--- canon agent angular speed 12000 = instant; swept for GMod readability
+ENT.Deceleration = 0
+ENT.WalkSpeed = 1000
+ENT.RunSpeed = 1000
 ENT.MaxYawRate = 400
 ENT.JumpHeight = 75
 ENT.StepHeight = 45
@@ -82,12 +82,13 @@ local ACTION = {
     seq = "HammerTantrum", dur = 3.800, track = true, roar = true,
     ev = {
       -- canon: four swings while approaching (horizontal, vert, vert, horizontal)
-      { 0.900, "moveOn", 5 },
+      -- the moveoff actually stops somwhere around 2.6
+      { 0.900, "moveOn", 10 },
       { 1.128, "swingOn" }, { 1.477, "swingOff" },
       { 1.643, "swingOn" }, { 1.975, "swingOff" },
       { 2.174, "swingOn" }, { 2.412, "impact" },
       { 2.689, "swingOn" }, { 3.004, "swingOff" },
-      { 3.100, "moveOff" },
+      { 2.6, "moveOff" },
     },
   },
   HammerSmash = {
@@ -147,86 +148,6 @@ local ACTION = {
 -- canon difficulty speed profile (wiki): -50% / -25% / 1.0 / +25% / +50%
 local ANIMSPEED_BY_DIFF = { [0] = 0.5, [1] = 0.75, [2] = 1.0, [3] = 1.25, [4] = 1.5 }
 
--- Possession --
-
-ENT.PossessionCrosshair = true
-
-ENT.PossessionEnabled = true
-
-ENT.PossessionMovement = POSSESSION_MOVE_1DIR
-
-ENT.PossessionViews = {
-
-  {
-
-    offset = Vector( 0, 40, 120 ),
-    distance = 550,
-    eyepos = false
-
-  },
-
-  {
-
-    offset = Vector( 20, 0, 0 ),
-    distance = 0,
-    eyepos = true
-
-  }
-
-}
-
--- onkeydown re-fires every behaviour tick while the key is held; the same
--- action / ram / cooldown gates the AI uses in UKM_AttackCheck keep a held
--- button from restarting an attack mid-swing
-local function CanStartPossessionAttack( self )
-  if self.UKM_Dead or self.UKM_Ramming or self:UKM_InAction() then return false end
-  return CurTime() >= ( self.UKM_AttackCooldown or 0 )
-end
-
-ENT.PossessionBinds = {
-
-  [ IN_ATTACK ] = { { coroutine = true, onkeydown = function( self, Possessor )
-
-    if not CanStartPossessionAttack( self ) then return end
-
-    if Possessor:KeyDown( IN_FORWARD ) then
-
-      self:UKM_StartAction( "HammerSmash" )
-
-    else
-
-      self:UKM_StartAction( "HammerTantrum" )
-
-    end
-
-  end } },
-
-  [ IN_ATTACK2 ] = { { coroutine = true, onkeydown = function( self, Possessor )
-
-    if not CanStartPossessionAttack( self ) then return end
-
-    if Possessor:KeyDown( IN_FORWARD ) then
-
-      self:UKM_StartAction( "MeatHigh" )
-
-    else
-
-      self:UKM_StartAction( "MeatLow" )
-
-    end
-
-  end } },
-
-  [ IN_RELOAD ] = { { coroutine = true, onkeydown = function( self, Possessor )
-
-    if not CanStartPossessionAttack( self ) then return end
-
-    self:UKM_StartRam()
-
-  end } }
-
-}
-
 if SERVER then
 
   ------------------------------------------------------------------------------
@@ -252,6 +173,7 @@ if SERVER then
     self.UKM_Swinging = false
     self.UKM_ActionHits = nil
     self.UKM_Stunned = false
+    self.AvailableAttacks = {"HammerTantrum", "HammerSmash", "MeatLow","MeatHigh"}
 
     -- canon arena behavior: tantrum is the guaranteed opener, and every
     -- 3 non-ram attacks force a Stampede Charge
@@ -269,9 +191,13 @@ if SERVER then
     self:SetParryable( false )
     self:SetSkin( 0 )
 
-    self:UKM_CreateColliders()
+    --self:UKM_CreateColliders()
 
-    self:EmitSound( UKMinotaur.SOUND.Roar, 110, 100, 1 )
+    UltrakillBase.SoundScript( "Ultrakill_MinotaurRoar", self:GetPos() )
+    if self.IsBoss and UltrakillBase.AddBoss then
+      UltrakillBase.AddBoss( self, "MINOTAUR" )
+      self:UKM_StartAction( "HammerTantrum" )
+    end
   end
 
   ------------------------------------------------------------------------------
@@ -421,12 +347,21 @@ if SERVER then
     self.loco:SetVelocity( vector_origin )
     self.CantMove = true
     self:SetMaxYawRate( 0 )
+    if name == "HammerSmash" then
+      UltrakillBase.SoundScript( "Ultrakill_MinotaurSqueal", self:GetPos() )
+    self.AvailableAttacks = {"HammerTantrum", "MeatLow","MeatHigh"}
+    elseif  name == "HammerTantrum" then
+    self.AvailableAttacks = {"HammerSmash", "MeatLow","MeatHigh"}
+    end
 
     if cfg.roar then
-      self:EmitSound( name == "HammerTantrum" and UKMinotaur.SOUND.Roar
-        or UKMinotaur.SOUND.GruntLong, 105, 100, 1 )
+      if name == "HammerTantrum" then
+      UltrakillBase.SoundScript( "Ultrakill_MinotaurRoar", self:GetPos() )
+      else
+      UltrakillBase.SoundScript( "Ultrakill_MinotaurGruntLong", self:GetPos() )
+      end
     elseif not cfg.stun then
-      self:EmitSound( UKMinotaur.SOUND.RoarShort, 95, math.random( 90, 110 ), 0.8 )
+      UltrakillBase.SoundScript( "Ultrakill_MinotaurShort", self:GetPos() )
     end
   end
 
@@ -479,23 +414,23 @@ if SERVER then
       self.UKM_Tracking = true
       local pos = self:UKM_HammerPos()
       pos = Vector( pos.x, pos.y, self:GetPos().z )
-      self.UKM_LastImpactPos = pos
-      sound.Play( UKMinotaur.SOUND.HammerImpact, pos, 100, 100, 1 )
-      local fx = EffectData()
-      fx:SetOrigin( pos )
-      util.Effect( "ThumperDust", fx, true, true )
-      util.ScreenShake( pos, 6, 60, 0.6, 800 )
+      UltrakillBase.SoundScript( "Ultrakill_RockBreak", self:GetPos() )
+      self:CreateBigRubble(  pos, self:GetAngles() )
+      self:ScreenShake( 150, 10, 1, 2000 )
     elseif kind == "explosion" then
       local pos = self.UKM_LastImpactPos or self:UKM_HammerPos()
-      sound.Play( UKMinotaur.SOUND.Explosion, pos, 105, 100, 1 )
-      UKMinotaur.Explode( self, pos, UKMinotaur.EXPLOSION_RADIUS,
-        UKMinotaur.EXPLOSION_DAMAGE )
+      self:ScreenShake( 2500, 10, 1.5, 6500 )
+      UltrakillBase.SoundScript( "Ultrakill_Explosion_1", self:GetPos() )
+      self:Explosion( self:GetPos(), 350, Vector( 350, 0, 300 ), 500, 0.2 )
+      self:CreateExplosion( pos, self:GetAngles(), UKMinotaur.EXPLOSION_RADIUS )
     elseif kind == "superExplosion" then
       local pos = self.UKM_LastImpactPos or self:UKM_HammerPos()
-      sound.Play( UKMinotaur.SOUND.ExplosionSuper, pos, 110, 90, 1 )
-      UKMinotaur.Explode( self, pos, UKMinotaur.SUPER_EXPLOSION_RADIUS,
-        UKMinotaur.SUPER_EXPLOSION_DAMAGE, { super = true } )
+      self:ScreenShake( 2500, 10, 1.5, 6500 )
+      UltrakillBase.SoundScript( "Ultrakill_Explosion_1", self:GetPos() )
+      self:Explosion( self:GetPos(), 350, Vector( 350, 0, 300 ), 800, 0.2 )
+      self:CreateHardExplosion( pos, self:GetAngles(), UKMinotaur.SUPER_EXPLOSION_RADIUS )
     elseif kind == "handBlood" then
+      self.AvailableAttacks = {"HammerTantrum", "HammerSmash"}
       sound.Play( UKMinotaur.SOUND.MeatSquish, self:UKM_MeatPos(), 85, 100, 0.8 )
     elseif kind == "meatSpawn" then
       self:UKM_SpawnMeatProp()
@@ -507,8 +442,10 @@ if SERVER then
       self:UKM_BeginRamRun()
     elseif kind == "thud" then
       local pos = self:GetPos()
-      sound.Play( UKMinotaur.SOUND.HammerImpact, pos, 95, 60, 1 )
-      util.ScreenShake( pos, 8, 60, 0.7, 900 )
+      UltrakillBase.SoundScript( "Ultrakill_PunchHeavy", self:GetPos() )
+      UltrakillBase.SoundScript( "Ultrakill_RockBreak", self:GetPos() )
+      self:CreateBigRubble(  pos, self:GetAngles() )
+      self:ScreenShake( 50, 10, 1, 2000 )
     elseif kind == "trackOn" then
       self.UKM_Tracking = true
     elseif kind == "trackOff" then
@@ -663,7 +600,7 @@ if SERVER then
 
       hits[ ent ] = true
       local dmg = DamageInfo()
-      dmg:SetDamage( UKMinotaur.ScaleAttackDamage( ent, UKMinotaur.SWING_DAMAGE, self ) )
+      dmg:SetDamage( UKMinotaur.ScaleAttackDamage( ent, UKMinotaur.SWING_DAMAGE ) )
       dmg:SetDamageType( DMG_CLUB )
       dmg:SetAttacker( self )
       dmg:SetInflictor( self )
@@ -683,6 +620,7 @@ if SERVER then
 
   function ENT:UKM_StartRam()
     self.UKM_AttackCount = 0
+    self.AvailableAttacks = {"HammerTantrum", "HammerSmash", "MeatLow","MeatHigh"}
     self:UKM_StartAction( "RamWindup" )
   end
 
@@ -726,9 +664,9 @@ if SERVER then
 
     if outcome == "bonk" then
       -- canon: the wall hurts the Minotaur and stuns it
-      self:EmitSound( UKMinotaur.SOUND.Squeal, 105, 100, 1 )
-      sound.Play( UKMinotaur.SOUND.HammerImpact, self:UKM_HeadPos(), 100, 70, 1 )
-      util.ScreenShake( self:GetPos(), 10, 60, 0.8, 1000 )
+      UltrakillBase.SoundScript( "Ultrakill_MinotaurRoarShort", self:GetPos() )
+      UltrakillBase.SoundScript( "Ultrakill_RockBreak", self:GetPos() )
+      self:ScreenShake( 250, 10, 1, 2000 )
       local dmg = DamageInfo()
       dmg:SetDamage( UKMinotaur.BONK_SELF_DAMAGE )
       dmg:SetDamageType( DMG_CLUB )
@@ -737,11 +675,11 @@ if SERVER then
       self:TakeDamageInfo( dmg )
       self:UKM_StartAction( "RamBonk" )
     elseif outcome == "parried" then
-      self:EmitSound( UKMinotaur.SOUND.Squeal, 110, 90, 1 )
+      UltrakillBase.SoundScript( "Ultrakill_MinotaurRoarShort", self:GetPos() )
       self:UKM_StartAction( "RamParried" )
       -- canon: the parry knocks the Minotaur back
       self.UKM_Moving = true
-      self.UKM_MovingSpeed = -10 * UNIT
+      self.UKM_MovingSpeed = -20 * UNIT
       self.UKM_MovingUntil = CurTime() + 0.35
     else
       self:UKM_StartAction( "RamSwing" )
@@ -842,7 +780,7 @@ if SERVER then
 
       hits[ ent ] = true
       local dmg = DamageInfo()
-      dmg:SetDamage( UKMinotaur.ScaleAttackDamage( ent, UKMinotaur.RAM_DAMAGE, self ) )
+      dmg:SetDamage( UKMinotaur.ScaleAttackDamage( ent, UKMinotaur.RAM_DAMAGE ) )
       dmg:SetDamageType( DMG_CLUB )
       dmg:SetAttacker( self )
       dmg:SetInflictor( self )
@@ -903,8 +841,11 @@ if SERVER then
 
     if CurTime() >= ( self.UKM_NextHurtSound or 0 ) and dmg:GetDamage() > 0 then
       self.UKM_NextHurtSound = CurTime() + 0.6
-      self:EmitSound( math.random( 2 ) == 1 and UKMinotaur.SOUND.Grunt1
-        or UKMinotaur.SOUND.Grunt2, 90, math.random( 95, 105 ), 0.9 )
+      if math.random( 2 ) == 1 then
+        UltrakillBase.SoundScript( "Ultrakill_MinotaurGrunt1", self:GetPos() )
+      else
+        UltrakillBase.SoundScript( "Ultrakill_MinotaurGrunt2", self:GetPos() )
+      end
     end
 
     BaseClass.OnTakeDamage( self, dmg, hitgroup )
@@ -913,6 +854,14 @@ if SERVER then
   ------------------------------------------------------------------------------
   -- Attack selection (canon arena rules)
   ------------------------------------------------------------------------------
+  function tablecontains(table, element) -- i wonder why this isn't a thing in lua
+  for _, value in pairs(table) do
+    if value == element then
+      return true
+    end
+  end
+  return false
+end
 
   function ENT:UKM_AttackCheck( enemy )
     if CurTime() < ( self.UKM_AttackCooldown or 0 ) then return end
@@ -920,7 +869,7 @@ if SERVER then
     local mypos = self:GetPos()
     local tpos = enemy:GetPos()
     local dist = Vector( tpos.x - mypos.x, tpos.y - mypos.y, 0 ):Length()
-    if dist > 30 * UNIT then return end
+    if dist > 20 * UNIT then return end
 
     -- canon: forced Stampede Charge after three other attacks
     if self.UKM_FirstAttackDone and self.UKM_AttackCount >= 3 then
@@ -941,19 +890,49 @@ if SERVER then
 
     local pick
     if dist < 7 * UNIT then
-      pick = math.Rand( 0, 1 ) < 0.55 and "HammerTantrum" or "HammerSmash"
-    elseif dist < 14 * UNIT then
-      local r = math.Rand( 0, 1 )
-      if r < 0.40 then pick = "HammerSmash"
-      elseif r < 0.70 then pick = "MeatLow"
-      else pick = "HammerTantrum" end
+      local rng = math.random(1,2)
+      if rng == 1 then
+        if tablecontains(self.AvailableAttacks, "HammerTantrum") then
+          pick = "HammerTantrum"
+        else
+          if tablecontains(self.AvailableAttacks, "HammerSmash") then
+          pick = "HammerSmash"
+          else
+          rng = math.random(1,2)
+          if rng == 1 then
+          pick = "MeatLow"
+          else
+          pick = "MeatHigh"
+          end
+          end
+        end
+      else
+        if tablecontains(self.AvailableAttacks, "HammerSmash") then
+          pick = "HammerSmash"
+        else
+          if tablecontains(self.AvailableAttacks, "HammerTantrum") then
+          pick = "HammerTantrum"
+          else
+                    rng = math.random(1,2)
+          if rng == 1 then
+          pick = "MeatLow"
+          else
+          pick = "MeatHigh"
+          end
+          end
+        end
+      end
     else
-      -- at the nav stop distance (15 m) the smash can't reach; the tantrum
-      -- can — it drives into the player while swinging (canon approach)
-      local r = math.Rand( 0, 1 )
-      if r < 0.40 then pick = "MeatLow"
-      elseif r < 0.70 then pick = "MeatHigh"
-      else pick = "HammerTantrum" end
+      if tablecontains(self.AvailableAttacks, "MeatLow") and tablecontains(self.AvailableAttacks, "MeatHigh") then
+      rng = math.random(1,2)
+      if rng == 1 then
+        pick = "MeatLow"
+      else
+        pick = "MeatHigh"
+      end
+    else
+      pick = "HammerSmash"
+    end
     end
 
     self.UKM_AttackCount = self.UKM_AttackCount + 1
@@ -980,7 +959,7 @@ if SERVER then
   end
 
   function ENT:OnUpdateSpeed()
-    return UKMinotaur.MOVE_SPEED * self:UKM_AnimSpeed()
+    return 1000 * self:UKM_AnimSpeed()
   end
 
   function ENT:OnMeleeAttack( enemy )
@@ -995,16 +974,9 @@ if SERVER then
   function ENT:CustomThink()
     if CLIENT then return end
     if self.UKM_Dead then return end
-    if self:IsAIDisabled() then -- ai_disabled / per-bot disable
-      -- рам гонит его через loco:SetVelocity каждый тик; замороженный
-      -- мид-чардж иначе скользит с последней скоростью (урок Гейбриела)
-      if self.UKM_Ramming and self.loco then
-        self.loco:SetVelocity( vector_origin )
-      end
-      return
-    end
-
+    local difficulty = UltrakillBase.GetDifficulty()
     local spd = self:UKM_AnimSpeed()
+    
     local enemy = self:GetEnemy()
 
     if self.UKM_Ramming then
@@ -1020,9 +992,7 @@ if SERVER then
       self:UKM_ProcessEvents()
     end
 
-    -- possessed with no lock-on must NOT take the idle early-return: the
-    -- footstep cycle below still has to run for player-driven movement
-    if not IsValid( enemy ) and not self:UKM_InAction() and not self:IsPossessed() then
+    if not IsValid( enemy ) and not self:UKM_InAction() then
       -- ambient exhale while wandering
       if CurTime() >= ( self.UKM_NextExhale or 0 ) then
         self.UKM_NextExhale = CurTime() + math.Rand( 6, 12 )
@@ -1067,14 +1037,14 @@ if SERVER then
           end
         end
         self.loco:SetDesiredSpeed( speed )
-        self.loco:Approach( self:GetPos() + dir * 100, 1 )
+        self.loco:Approach( self:GetPos() + dir * 200, 1 )
         self.loco:SetVelocity( Vector( dir.x * speed, dir.y * speed,
           self.loco:GetVelocity().z ) )
       end
 
       self:UKM_ApplyMeleeDamage()
 
-    elseif self:IsOnGround() and not self:IsPossessed() then
+    elseif self:IsOnGround() then
       self:UKM_AttackCheck( enemy )
     end
 
@@ -1123,7 +1093,9 @@ if SERVER then
     self:UKM_SetCollidersSolid( false )
     self.loco:SetVelocity( vector_origin )
 
-    self:EmitSound( UKMinotaur.SOUND.Squeal, 110, 85, 1 )
+    self:Shake( 6, 8 ) -- shake
+
+    UltrakillBase.SoundScript( "Ultrakill_MinotaurRoarShort", self:GetPos() )
 
     local seq = self:LookupSequence( "Death" )
     local dur = 2.4
@@ -1135,7 +1107,7 @@ if SERVER then
       dur = math.max( self:SequenceDuration( seq ), 0.1 )
     end
 
-    -- Death clip plays out, then a Hideous-Mass-style finale (spec
+    -- Death clip plays out, then a Hideous-Mass-style finale (user spec
     -- 2026-07-07): escalating blood splatters through the collapse, then a
     -- big blood burst + Death_Explode + slow motion instead of a fade-out.
     -- HM lesson: the base's animation think runs through the whole OnDeath
@@ -1144,9 +1116,11 @@ if SERVER then
     local deathStart = CurTime()
     local thudAt = CurTime() + 0.97       -- canon Death clip BodyImpact
     local thudDone = false
+    local screamAt = CurTime() + 1.3
+    local screamDone = false
     -- hold through the clip + the raised-hand beat at the end
     local lieUntil = CurTime() + 5.0
-    local nextBlood = CurTime() + 0.9
+    local nextBlood = CurTime() + 0.3
     while IsValid( self ) and CurTime() < lieUntil do
       if seq and seq >= 0 then
         if self:GetSequence() ~= seq then
@@ -1158,25 +1132,35 @@ if SERVER then
       end
       if not thudDone and CurTime() >= thudAt then
         thudDone = true
-        sound.Play( UKMinotaur.SOUND.HammerImpact, self:GetPos(), 100, 55, 1 )
-        util.ScreenShake( self:GetPos(), 10, 60, 0.8, 1200 )
+        UltrakillBase.SoundScript( "Ultrakill_PunchHeavy", self:GetPos() )
+        self:ScreenShake( 150, 10, 1, 2000 )
+      end
+      -- scream
+      if not screamDone and CurTime() >= screamAt then
+        screamDone = true
+        UltrakillBase.SoundScript( "Ultrakill_MinotaurDie", self:GetPos() )
       end
       if CurTime() >= nextBlood and UltrakillBase and UltrakillBase.CreateBlood then
-        nextBlood = CurTime() + 0.3333
+        nextBlood = CurTime() + 0.3
+        for _ = 1,3 do
         UltrakillBase.CreateBlood(
           self:WorldSpaceCenter() + VectorRand() * ( 3 * UNIT ), 24 )
+        end
         UltrakillBase.SoundScript( "Ultrakill_Death", self:GetPos() )
       end
       self:YieldCoroutine()
     end
 
     if IsValid( self ) and UltrakillBase and UltrakillBase.CreateBlood then
-      for _ = 1, 6 do
+      for _ = 1, 8 do
         UltrakillBase.CreateBlood(
           self:WorldSpaceCenter() + VectorRand() * ( 3 * UNIT ), 32 )
       end
       UltrakillBase.SoundScript( "Ultrakill_Death_Explode", self:GetPos() )
       if UltrakillBase.SlowMotion then UltrakillBase.SlowMotion( 2 ) end
+    end
+    if self.IsBoss then
+        UltrakillBase.StopCurrentMusic( self )
     end
     -- no return value: the base removes the body right after the burst
   end

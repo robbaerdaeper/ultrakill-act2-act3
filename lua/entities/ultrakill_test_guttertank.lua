@@ -178,6 +178,9 @@ if SERVER then
 
   function ENT:OnSpawn()
     BaseClass.OnSpawn( self )
+    self:CreatePortal( self:WorldSpaceCenter(), self:GetAngles(), 3, Vector( 210, 180, 260 ) )
+    self:ParticleEffectTimed( 2, "Ultrakill_Portal_Cerberus", { pos = self:WorldSpaceCenter(), ang = self:GetAngles() } )
+    UltrakillBase.SoundScript( "Ultrakill_Portal_Superheavy", self:GetPos() )
     self:SetTurning( true )
   end
 
@@ -426,12 +429,12 @@ if SERVER then
       dmg:SetAttacker( self )
       dmg:SetInflictor( self )
       dmg:SetDamagePosition( ent:WorldSpaceCenter() )
-      dmg:SetDamageForce( self:GetForward() * 2000 + Vector( 0, 0, 400 ) )
+      dmg:SetDamageForce( self:GetForward() * 2500 + Vector( 0, 0, 400 ) )
       ent:TakeDamageInfo( dmg )
 
       -- canon knockBackForce 50: heavy launch along the punch direction
       if IsValid( ent ) and ( ent:IsPlayer() or ent:IsNextBot() ) then
-        ent:SetVelocity( self:GetForward() * 1000 + Vector( 0, 0, 300 ) )
+        ent:SetVelocity( self:GetForward() * 2500 + Vector( 0, 0, 300 ) )
       end
 
       UltrakillBase.SoundScript( "Ultrakill_GuttertankPunchHit", self:GetPos() )
@@ -500,9 +503,9 @@ if SERVER then
   end
 
   function ENT:UKGT_ProcessRocket( enemy )
+    self:FaceTowards( enemy:GetPos() )
     local t = self:UKGT_ActionTime()
     local cfg = ACTION.Shoot
-
     -- canon trackInAction: rotate onto the target at 360 deg/s the whole action
     self:UKGT_SetYawRate( 360 )
     if IsValid( enemy ) then self:FaceTowards( enemy:GetPos() ) end

@@ -242,7 +242,6 @@ if SERVER then
     -- Anything nearer along the ray (body, wall, prop) still gets hit first;
     -- the clamp only stops the bullet from continuing PAST the shield plane.
     data.Distance = bestDist + 1
-
     local helper = best
     local shotDir = dir
     local oldCb = data.Callback

@@ -743,8 +743,6 @@ if SERVER then
 
     for _, ent in ipairs( ents.FindInSphere( center, radius ) ) do
       if ent == self or not IsValid( ent ) or hits[ ent ] then continue end
-      -- canon SwingCheck2.enemyDamage = 0: melee only ever hurts players
-      if not ent:IsPlayer() then continue end
       if not ent:Alive() then continue end
 
       hits[ ent ] = true

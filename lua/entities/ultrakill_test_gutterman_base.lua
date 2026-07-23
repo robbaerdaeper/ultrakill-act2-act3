@@ -257,8 +257,6 @@ if SERVER then
     self:SetBodygroupByNameSafe( "casket_door", self.UKGutterman_Casketless and 1 or 0 )
     self:SetBodygroupByNameSafe( "body", self.UKGutterman_Casketless and 1 or 0 )
 
-    self:UKGutterman_CreateShield()
-
     if self.UKGutterman_Boss and UltrakillBase.AddBoss then
       UltrakillBase.AddBoss( self, UKGutterman.BOSS_TITLE )
     end
@@ -266,6 +264,10 @@ if SERVER then
 
   function ENT:OnSpawn()
     BaseClass.OnSpawn( self )
+    self:CreatePortal( self:WorldSpaceCenter(), self:GetAngles(), 3, Vector( 200, 200, 240 ) )
+    self:ParticleEffectTimed( 2, "Ultrakill_Portal_Cerberus", { pos = self:WorldSpaceCenter(), ang = self:GetAngles() } )
+    UltrakillBase.SoundScript( "Ultrakill_Portal_Superheavy", self:GetPos() )
+    self:UKGutterman_CreateShield() -- creating the shield on custom initialize moves the gutterman for some reason so we do it on spawn
     self:SetTurning( true )
   end
 
@@ -748,7 +750,7 @@ if SERVER then
       -- hard-assigns transform.rotation.
       self:UKGutterman_SetYawRate( 3600 )
       local flat = Vector( track.x, track.y, pos.z )
-      self:FaceTowards( flat )
+      self:FaceTowards( pos )
       local toTrack = flat - pos
       if toTrack:LengthSqr() > 1 then
         local ang = self:GetAngles()
@@ -1403,7 +1405,7 @@ if SERVER then
 
     for _, ent in ipairs( ents.FindInSphere( chest, 3 * UNIT ) ) do
       if ent == self or not IsValid( ent ) or crushed[ ent ] then continue end
-      if not ( ent:IsPlayer() or ent:IsNPC() or ent:IsNextBot() ) then continue end
+      if not ( ent:IsNPC() or ent:IsNextBot() ) then continue end
       if ent:GetPos().z > chest.z + 20 then continue end
 
       crushed[ ent ] = true

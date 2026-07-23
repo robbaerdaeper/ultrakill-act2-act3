@@ -10,16 +10,11 @@ UKFerryman.CATEGORY = "ULTRAKILL Test"
 UKFerryman.HP_REGULAR = 30000
 
 -- Canon scale: 40 su per canon meter (compiled model ~200 su vs 5 m capsule).
-UKFerryman.UNIT = 24 -- 2026-07-10 r3: ещё +10% (итог x0.605 от исходных 40)
+UKFerryman.UNIT = 16 -- 2026-07-10 r3: ещё +10% (итог x0.605 от исходных 40)
 -- Canon NavMeshAgent speed: 32 m/s (fastest ground unit in the game).
 UKFerryman.MOVE_SPEED = 32 * UKFerryman.UNIT
 -- Canon SwingCheck2 damage: StartDamage anim events pass int 0 => default 25.
 UKFerryman.SWING_DAMAGE = 25
--- Canon slam explosion ("Explosion Ferryman"): damage 35, maxSize 6.
--- Explosion.cs FixedUpdate: growth stops when lossyScale*collider.radius >
--- maxSize => maxSize IS the final world RADIUS in meters.
-UKFerryman.SLAM_DAMAGE = 35
-UKFerryman.SLAM_RADIUS = 6 * UKFerryman.UNIT
 -- Canon lightning ("Explosion Lightning"): damage 35, maxSize 20 (radius, m), electric.
 UKFerryman.LIGHTNING_DAMAGE = 35
 UKFerryman.LIGHTNING_RADIUS = 20 * UKFerryman.UNIT
@@ -81,8 +76,6 @@ function UKFerryman.ScaleAttackDamage( ent, damage, attacker )
   return damage * math.max( cv and cv:GetFloat() or 1, 0 )
 end
 
--- Canon flat-damage sphere (ULTRAKILL Explosion: no distance falloff inside
--- maxSize). safeForPlayer mirrors Explosion.canHit = EnemiesOnly.
 function UKFerryman.Explode( attacker, pos, radius, damage, opts )
   opts = opts or {}
   if SERVER then

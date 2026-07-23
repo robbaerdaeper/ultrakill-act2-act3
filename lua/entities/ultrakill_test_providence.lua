@@ -520,7 +520,21 @@ if SERVER then
   -- ---- canon Drone.Dodge: dir = up*rand(-5,5) + right*rand(-5,5), 7 m wall
   -- probe flips it, then a hard impulse (Providence: 750 vs Virtue 150)
   function ENT:UKProv_CanonDodge()
-    local dir = self:GetUp() * math.Rand( -5, 5 ) + self:GetRight() * math.Rand( -5, 5 )
+    local dir = self:GetUp() * math.Rand( -35, 35 ) + self:GetRight() * math.Rand( -35, 35 )
+    if dir:IsZero() then dir = Vector( 0, 0, 1 ) end
+    dir:Normalize()
+    local tr = util.TraceLine( {
+      start = self:GetPos(),
+      endpos = self:GetPos() + dir * UKProvidence.DODGE_WALL_PROBE,
+      filter = self, mask = MASK_SOLID_BRUSHONLY,
+    } )
+    if tr.Hit then dir = -dir end
+    self:UKProv_Burst( dir, UKProvidence.DODGE_SPEED, 0.22 )
+    self:EmitSound( SND.Dodge, 65, math.random( 75, 125 ), 0.6 )
+  end
+
+    function ENT:UKProv_WhipDodge()
+    local dir = self:GetUp() * math.Rand( -200, 200 ) + self:GetRight() * math.Rand( -200, 200 )
     if dir:IsZero() then dir = Vector( 0, 0, 1 ) end
     dir:Normalize()
     local tr = util.TraceLine( {
@@ -537,11 +551,11 @@ if SERVER then
   -- forced or on BRUTAL+
   function ENT:UKProv_ForceDodge( force )
     local diff = self:UKProv_GetDifficulty()
-    self:UKProv_CanonDodge()
+    self:UKProv_WhipDodge()
     if diff >= 2 and ( diff >= 4 or force ) then
       local slf = self
       timer.Simple( 0.1, function()
-        if IsValid( slf ) and slf.UKProv_CanonDodge then slf:UKProv_CanonDodge() end
+        if IsValid( slf ) and slf.UKProv_CanonDodge then slf:UKProv_WhipDodge() end
       end )
     end
   end
