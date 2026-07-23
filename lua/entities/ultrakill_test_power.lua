@@ -31,6 +31,8 @@ ENT.Factions = { "FACTION_ULTRAKILL_ENEMIES" }
 ENT.UltrakillBase_WeightClass = "Medium"
 
 ENT.UKPower_IsPower = true -- canon: Powers never damage each other
+ENT.IsBoss = false
+ENT.BossName = "you probably fucked smthn up"
 
 local UNIT = UKPower.UNIT
 
@@ -157,6 +159,12 @@ local ACTION = {
       -- Gabriel-intro pattern: the black silhouette is revealed with a burst
       -- (~60% through, matching Gabriel's frame-164 Reveal cadence)
       { 2.600, "reveal" },
+    },
+  },
+  SpecialIntro = {
+    seq = "Intro", dur = 4.333,
+    ev = {
+      { 3.7, "reveal" },
     },
   },
 }
@@ -326,6 +334,12 @@ if SERVER then
     -- canon intro: black silhouette inside a golden light pillar + a blue
     -- circle burst (canon RageEffect); the Intro 'reveal' event strips the
     -- silhouette (Gabriel-intro pattern, gold instead of white)
+    
+    self:SetNoTarget( true )
+    self:SetGodMode( true )
+    self:SetTurning( false )
+    self:SetFullTracking( false )
+
     self:SetMaterial( "models/ultrakill/shared/Black" )
     local ifx = EffectData()
     ifx:SetEntity( self )
@@ -333,8 +347,15 @@ if SERVER then
     util.Effect( "ultrakill_power_intro", ifx, true, true )
     self:UKP_Ring( self:WorldSpaceCenter(), 500, 1.4, 0 )
 
+    util.ScreenShake( self:GetPos(), 26, 60, 1.2, 10000 )
+    sound.Play( "ultrakill/sound/railcannonfire5.wav", self:GetPos(), 130, 110, 1 )
+    if self.IsBoss then
+    UltrakillBase.SoundScript( "Ultrakill_Power_SpecialIntro1", self:GetPos(), self ) // idk how to use the UKP_Voice function to be honest XD
+    self:UKP_StartAction( "SpecialIntro" )
+    else
     self:UKP_Voice( "Intro", true )
     self:UKP_StartAction( "Intro" )
+    end
   end
 
   function ENT:OnSpawn()
@@ -379,7 +400,7 @@ if SERVER then
   end
 
   function ENT:UKP_HeadPos()
-    return self:UKP_GetAttachmentPos( "head", self:GetPos() + Vector( 0, 0, 105 ) ) -- x0.5 rescale
+    return self:UKP_GetAttachmentPos( "head", self:GetPos() + Vector( 0, 0, 210 ) )
   end
 
   function ENT:UKP_WeaponPos()
@@ -475,7 +496,7 @@ if SERVER then
     local spd = self:UKP_AnimSpeed()
 
     local enemy = self:GetEnemy()
-    if IsValid( enemy ) and name ~= "Intro" and name ~= "Enrage" then
+    if IsValid( enemy ) and name ~= "Intro" and self.UKP_ActionName ~= "SpecialIntro" and name ~= "Enrage" then
       self:FaceInstant( self:UKP_EnemyHeadPos( enemy ) )
     end
 
@@ -507,7 +528,7 @@ if SERVER then
   function ENT:UKP_StopAction()
     local wasAttack = self.UKP_ActionName ~= nil
       and self.UKP_ActionName ~= "Backdash" and self.UKP_ActionName ~= "Enrage"
-      and self.UKP_ActionName ~= "Intro"
+      and self.UKP_ActionName ~= "Intro" and self.UKP_ActionName ~= "SpecialIntro"
     self.UKP_ActionName = nil
     self.UKP_ActionUntil = nil
     self.UKP_GoForward = false
@@ -618,6 +639,13 @@ if SERVER then
       self:EmitSound( UKPower.SOUND.WeaponBreak, 92, 100, 1 )
       self:UKP_Ring( self:WorldSpaceCenter(), 460, 1.0, 3 )
       util.ScreenShake( self:GetPos(), 6, 60, 1.2, 1800 )
+      self:SetNoTarget( false )
+      self:SetFullTracking( true )
+      self:SetGodMode( false )
+      self:SetSandable( true )
+      if self.IsBoss and UltrakillBase.AddBoss then
+        UltrakillBase.AddBoss( self, self.BossName )
+      end
 
     elseif kind == "vertical" then
       self.UKP_VerticalSwing = true
@@ -718,8 +746,6 @@ if SERVER then
       -- canon SwingCheck2.enemyDamage = 0: melee only ever hurts players
       if not ent:IsPlayer() then continue end
       if not ent:Alive() then continue end
-      -- the possessor rides at the bot's own origin, inside the swing box
-      if ent == self:GetPossessor() then continue end
 
       hits[ ent ] = true
       local dmg = DamageInfo()
@@ -751,7 +777,7 @@ if SERVER then
   function ENT:UKP_ThrowSpear()
     local proj = self:CreateProjectile( UKPower.CLASS.Spear, true )
     if not IsValid( proj ) then return end
-    proj:SetPos( self:GetPos() + Vector( 0, 0, 70 ) + self:GetForward() * ( 3 * UNIT ) ) -- x0.5 rescale
+    proj:SetPos( self:GetPos() + Vector( 0, 0, 140 ) + self:GetForward() * ( 3 * UNIT ) )
     local speed = UKPower.SPEAR_SPEED * UNIT
     if self:UKP_GetDifficulty() <= 1 then speed = speed * 0.5 end -- canon
     self:AimProjectile( proj, speed )
@@ -803,7 +829,7 @@ if SERVER then
       local pos = tr.Hit and ( tr.HitPos - dir * ( 3 * UNIT ) ) or ( head + dir * dist )
       if horizontal then pos.z = head.z end
       -- feet position (fly pivot ~3.38 m above the origin)
-      pos = pos - Vector( 0, 0, 67 ) -- x0.5 rescale
+      pos = pos - Vector( 0, 0, 135 )
 
       local hull = util.TraceHull( {
         start = pos + Vector( 0, 0, 5 ), endpos = pos + Vector( 0, 0, 5 ),
@@ -870,7 +896,7 @@ if SERVER then
     else
       -- canon vertical: teleport 15 m above the head, drop pose, dive down
       self:UKP_PlaySeq( "SpearDrop" )
-      local pos = head + Vector( 0, 0, 15 * UNIT ) - Vector( 0, 0, 67 ) -- x0.5 rescale
+      local pos = head + Vector( 0, 0, 15 * UNIT ) - Vector( 0, 0, 135 )
       self:UKP_TeleportTo( pos )
       self.UKP_SpearHover = true
       self:FaceInstant( head )
@@ -1108,8 +1134,8 @@ if SERVER then
     if self.UKP_Juggled then
       dmg:SetDamage( dmg:GetDamage() * UKPower.JUGGLE_DMG_TAKEN_MULT )
       local t = CurTime() - self.UKP_JuggleT0
-      local boost = ( dmg:GetDamage() / 1000 ) * math.Clamp( 3 - ( t - 3 ), 0, 5 )
-      self.UKP_JuggleVel = math.min( self.UKP_JuggleVel + boost * UNIT, 35 * UNIT )
+      local boost = ( dmg:GetDamage() / 250 ) * math.Clamp( 3 - ( t - 3 ), 0, 5 )
+      self.UKP_JuggleVel = math.min( self.UKP_JuggleVel + boost * UNIT, 140 * UNIT )
       -- shots during the juggle answer with the Hurt grunts (bypass the
       -- voice-priority gate: HurtBig from the launch would mute them)
       if CurTime() >= self.UKP_HurtVoiceAt then
@@ -1150,12 +1176,6 @@ if SERVER then
   function ENT:CustomThink()
     if CLIENT then return end
     if self.UKP_Dead then return end
-    if self:IsAIDisabled() then -- ai_disabled / per-bot disable
-      -- goForward-выпады гонят его по-тиковым loco:SetVelocity — замороженный
-      -- мид-рывок иначе дрейфует с последней скоростью (урок Гейбриела)
-      if self.loco then self.loco:SetVelocity( vector_origin ) end
-      return
-    end
 
     local now = CurTime()
     local dt = math.min( now - ( self.UKP_LastThink or now - FrameTime() ), 0.25 )
@@ -1205,6 +1225,9 @@ if SERVER then
         local mult = diff >= 4 and 1.25 or 1
         local dir = self.UKP_Spearing and ( self.UKP_SpearDir or self:GetForward() )
           or self:GetForward()
+          if !self.UKP_Spearing then
+              dir = ( self:UKP_EnemyHeadPos( enemy ) - self:UKP_HeadPos() ):GetNormalized()
+          end
         self.loco:SetVelocity( dir *
           ( self.UKP_ForwardSpeed * UNIT * mult * self:UKP_AnimSpeed() ) )
 
@@ -1227,10 +1250,6 @@ if SERVER then
       self:UKP_ApplyMeleeDamage()
       return
     end
-
-    -- possessed: binds start the attacks; everything below is autonomous
-    -- decision-making (turn cadence, teleports, self-defense, strafe)
-    if self:IsPossessed() then return end
 
     if not IsValid( enemy ) then return end
 
@@ -1318,13 +1337,6 @@ if SERVER then
     return -- attacks driven by UKP_PickAttack in CustomThink
   end
 
-  -- actions pin exact velocities (goForward lunges, CantMove zeroing) and the
-  -- juggle integrates SetPos by hand — the possessor must not drive the loco
-  -- over them; returning true skips DrGBase possession movement for the tick
-  function ENT:OnPossession()
-    return self.UKP_Juggled or self:UKP_InAction()
-  end
-
   ------------------------------------------------------------------------------
   -- Death (canon Death(): the body vibrates while limbs detach one by one,
   -- light gets sucked back in, then the shell shatters)
@@ -1378,36 +1390,30 @@ if SERVER then
     local shakeUntil = CurTime() + 3.0
     local nextLimb = CurTime() + 0.35
     local limbIdx = 1
+    self:SetRenderMode( RENDERMODE_TRANSCOLOR )
     while IsValid( self ) and CurTime() < shakeUntil do
       self:SetPos( base + Vector( math.Rand( -8, 8 ), math.Rand( -8, 8 ), math.Rand( -4, 4 ) ) )
       if CurTime() >= nextLimb and limbIdx <= #DEATH_LIMBS then
         self:UKP_DetachLimb( DEATH_LIMBS[ limbIdx ] )
         limbIdx = limbIdx + 1
         nextLimb = CurTime() + 0.26
+        local a = math.Clamp( ( shakeUntil - CurTime() ), 0, 1 )
+        self:SetColor( Color( 255, 255, 255, a * 255 ) )
       end
       self:YieldCoroutine()
     end
     if not IsValid( self ) then return dmg end
     self:SetPos( base )
     self:SetNW2Bool( "UKPower_Dying", false )
-
+    -- note: this actually doesn't happen in the actual game. powers dont explode on death.
     -- canon DeathEffects: the light shatters
-    local center = self:WorldSpaceCenter()
-    sound.Play( UKPower.SOUND.DeathShatter, center, 95, 100, 1 )
-    self:UKP_Ring( center, 640, 1.2, 3 )
-    local fx = EffectData()
-    fx:SetOrigin( center )
-    fx:SetRadius( 4 * UNIT )
-    util.Effect( "Ultrakill_Explosion", fx, true, true )
-
-    self:SetRenderMode( RENDERMODE_TRANSCOLOR )
-    local fadeUntil = CurTime() + 1.0
-    while IsValid( self ) and CurTime() < fadeUntil do
-      local a = math.Clamp( ( fadeUntil - CurTime() ), 0, 1 )
-      self:SetColor( Color( 255, 255, 255, a * 255 ) )
-      self:YieldCoroutine()
-    end
-
+    --local center = self:WorldSpaceCenter()
+    --sound.Play( UKPower.SOUND.DeathShatter, center, 95, 100, 1 )
+    --self:UKP_Ring( center, 640, 1.2, 3 )
+    --local fx = EffectData()
+    --fx:SetOrigin( center )
+    --fx:SetRadius( 4 * UNIT )
+    --util.Effect( "Ultrakill_Explosion", fx, true, true )
     return dmg
   end
 end
